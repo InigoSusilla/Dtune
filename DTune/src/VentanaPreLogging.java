@@ -8,6 +8,8 @@ import javax.swing.border.EmptyBorder;
 public class VentanaPreLogging extends JFrame {
 
 	private JPanel contentPane;
+	int prueba;
+	int prueba2;
 
 	/**
 	 * Launch the application.
