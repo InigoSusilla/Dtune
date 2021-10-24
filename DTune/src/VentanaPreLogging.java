@@ -5,14 +5,15 @@ import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 import java.awt.GridLayout;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+
 import javax.swing.JLabel;
 import javax.swing.JButton;
 
 public class VentanaPreLogging extends JFrame {
 
 	private JPanel contentPane;
-	int prueba;
-	int prueba2;
 
 	/**
 	 * Launch the application.
@@ -34,6 +35,7 @@ public class VentanaPreLogging extends JFrame {
 	 * Create the frame.
 	 */
 	public VentanaPreLogging() {
+		
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 450, 300);
 		contentPane = new JPanel();
@@ -50,6 +52,17 @@ public class VentanaPreLogging extends JFrame {
 		
 		JButton btnCrearCuenta = new JButton("Crear cuenta");
 		contentPane.add(btnCrearCuenta, BorderLayout.SOUTH);
+		setSize(300,150);
+		
+		btnCrearCuenta.addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				new VentanaCrearCuenta();
+				System.out.println("aaa");
+				
+			}
+		});
 	}
 
 }
