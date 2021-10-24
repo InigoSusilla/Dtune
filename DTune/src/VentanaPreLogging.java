@@ -35,6 +35,7 @@ public class VentanaPreLogging extends JFrame {
 	 * Create the frame.
 	 */
 	public VentanaPreLogging() {
+		setTitle("DTune Logging");
 		
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 450, 300);
@@ -52,7 +53,7 @@ public class VentanaPreLogging extends JFrame {
 		
 		JButton btnCrearCuenta = new JButton("Crear cuenta");
 		contentPane.add(btnCrearCuenta, BorderLayout.SOUTH);
-		setSize(300,150);
+		setSize(400,150);
 		
 		btnCrearCuenta.addActionListener(new ActionListener() {
 			
