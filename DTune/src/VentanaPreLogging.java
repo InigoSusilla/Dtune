@@ -6,6 +6,7 @@ import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 import java.awt.GridLayout;
 import javax.swing.JLabel;
+import javax.swing.JButton;
 
 public class VentanaPreLogging extends JFrame {
 
@@ -38,10 +39,17 @@ public class VentanaPreLogging extends JFrame {
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
-		contentPane.setLayout(new GridLayout(1, 0, 0, 0));
+		contentPane.setLayout(new BorderLayout(0, 0));
 		
-		JLabel lblNewLabel = new JLabel("New label");
+		JLabel lblNewLabel = new JLabel("");
 		contentPane.add(lblNewLabel);
+		
+		JButton btnIniciarSesion = new JButton("Iniciar Sesi\u00F3n");
+		contentPane.add(btnIniciarSesion, BorderLayout.NORTH);
+		
+		
+		JButton btnCrearCuenta = new JButton("Crear cuenta");
+		contentPane.add(btnCrearCuenta, BorderLayout.SOUTH);
 	}
 
 }
