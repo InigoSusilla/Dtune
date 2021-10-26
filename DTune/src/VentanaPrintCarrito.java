@@ -1,5 +1,7 @@
 import java.awt.BorderLayout;
 import java.awt.EventQueue;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
 import javax.swing.JFrame;
 import javax.swing.JPanel;
@@ -59,6 +61,17 @@ public class VentanaPrintCarrito extends JFrame {
 		JButton btnCancelar = new JButton("Cancelar");
 		btnCancelar.setForeground(Color.GREEN);
 		PanelCancelar.add(btnCancelar);
+		
+		btnPagar.addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				new VentanaImprimir();
+				System.out.println("aaa");
+				
+			}
+			
+		});
 		
 		setSize(300, 100);
 	}
