@@ -61,6 +61,7 @@ public class VentanaPrintCarrito extends JFrame {
 		PanelCancelar.add(btnCancelar);
 		
 		setSize(300, 100);
+		
 	}
 
 }

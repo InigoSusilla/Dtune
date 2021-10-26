@@ -46,7 +46,7 @@ public class VentanaCrearCuenta extends JFrame {
 		JPanel PanelRegistrar = new JPanel();
 		contentPane.add(PanelRegistrar, BorderLayout.SOUTH);
 		
-		JButton btnRegistrar = new JButton("Contrase\u00F1a");
+		JButton btnRegistrar = new JButton("Registrar");
 		PanelRegistrar.add(btnRegistrar);
 		
 		JPanel PanelContrasena = new JPanel();
