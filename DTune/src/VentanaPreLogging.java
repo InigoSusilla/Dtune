@@ -50,6 +50,16 @@ public class VentanaPreLogging extends JFrame {
 		JButton btnIniciarSesion = new JButton("Iniciar Sesi\u00F3n");
 		contentPane.add(btnIniciarSesion, BorderLayout.NORTH);
 		
+		btnIniciarSesion.addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				new VentanaIniciarSesion();
+				System.out.println("bbb");
+				
+			}
+		});
+		
 		
 		JButton btnCrearCuenta = new JButton("Crear cuenta");
 		contentPane.add(btnCrearCuenta, BorderLayout.SOUTH);
@@ -64,6 +74,7 @@ public class VentanaPreLogging extends JFrame {
 				
 			}
 		});
+
 	}
 
 }
