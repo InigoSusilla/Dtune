@@ -1,18 +1,27 @@
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.InputStream;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.time.ZonedDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.Date;
+
+import javax.print.attribute.standard.Media;
+import javax.sound.sampled.AudioInputStream;
 
 public class Cancion {
 	
 	
 	public String nombre;
 	public String autor;
-	public float precio;
+	public double precio;
 	public boolean esVinillo;
 	public Date fechaLanzamiento;
 	public String genero;
 	public String ruta;
-	public float duracion;
+	public double duracion;
 	
 	
 	public String getNombre() {
@@ -27,7 +36,7 @@ public class Cancion {
 	public void setAutor(String autor) {
 		this.autor = autor;
 	}
-	public float getPrecio() {
+	public double getPrecio() {
 		return precio;
 	}
 	public void setPrecio(float precio) {
@@ -57,7 +66,7 @@ public class Cancion {
 	public void setRuta(String ruta) {
 		this.ruta = ruta;
 	}
-	public float getDuracion() {
+	public double getDuracion() {
 		return duracion;
 	}
 	public void setDuracion(float duracion) {
@@ -69,8 +78,8 @@ public class Cancion {
 				+ ", fechaLanzamiento=" + fechaLanzamiento + ", genero=" + genero + ", ruta=" + ruta + ", duracion="
 				+ duracion + "]";
 	}
-	public Cancion(String nombre, String autor, float precio, boolean esVinillo, Date fechaLanzamiento, String genero,
-			String ruta, float duracion) {
+	public Cancion(String nombre, String autor, double precio, boolean esVinillo, Date fechaLanzamiento, String genero,
+			String ruta, double duracion) {
 		this.nombre = nombre;
 		this.autor = autor;
 		this.precio = precio;
@@ -81,15 +90,26 @@ public class Cancion {
 		this.duracion = duracion;
 	}
 
-	
-	//Cancion thunder = new Cancion("Thunderstruck","AC/DC",5.5,true, a ,"Rock","a",5.3);
-	
-	public void Sonar(Cancion a) {
-		
-	
 
-}
+
 	public static void main(String[] args) {
 		
+		
+		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+		
+		Date d = null;
+		try {
+			d = new SimpleDateFormat().parse("1090-09-12");
+		} catch (ParseException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+
+		
+		Cancion thunder = new Cancion("Thunderstruck","AC/DC",(float)5.5,true, d ,"Rock","demosCanciones/Thunder.mp3",(float)5.3);
+		
+		
+
 	}
 }
