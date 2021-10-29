@@ -106,6 +106,16 @@ public class VentanaPrintCarrito extends JFrame {
 			
 		});
 		
+		btnVolver.addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				new VentanaMain();
+				System.out.println("aaa");
+				
+			}
+		});
+		
 		setSize(300, 100);
 		
 	}

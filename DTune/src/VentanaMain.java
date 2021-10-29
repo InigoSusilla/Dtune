@@ -75,7 +75,7 @@ public class VentanaMain extends JFrame {
 		JScrollBar scrollCarrito = new JScrollBar();
 		panelCarrito.add(scrollCarrito);
 		
-		setSize(1900, 1050);
+		setSize(1900, 800);
 	
 	
 	btnIniciarSesion.addActionListener(new ActionListener() {
