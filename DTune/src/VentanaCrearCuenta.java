@@ -29,12 +29,12 @@ public class VentanaCrearCuenta extends JFrame {
 		this.usuario = usuario;
 	}
 
-	public String getContraseña() {
+	public String getContrasena() {
 		return contrasena;
 	}
 
-	public void setContraseña(String contraseña) {
-		this.contrasena = contraseña;
+	public void setContrasena(String contrasena) {
+		this.contrasena = contrasena;
 	}
 
 	private JPanel contentPane;
