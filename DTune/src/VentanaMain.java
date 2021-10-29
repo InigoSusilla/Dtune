@@ -16,6 +16,7 @@ import javax.swing.JComboBox;
 
 public class VentanaMain extends JFrame {
 	public VentanaMain() {
+		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		
 		JPanel PanelPreview = new JPanel();
 		getContentPane().add(PanelPreview, BorderLayout.SOUTH);
@@ -78,28 +79,28 @@ public class VentanaMain extends JFrame {
 		setSize(1900, 800);
 	
 	
+	
+	
 	btnIniciarSesion.addActionListener(new ActionListener() {
 		
 		@Override
 		public void actionPerformed(ActionEvent e) {
 			new VentanaPreLogging();
-			System.out.println("aaa");
+			System.out.println("Ventana pre iniciar");
 			
 		}
 	});
+	
 	
 	btnFinalizar.addActionListener(new ActionListener() {
 		
 		@Override
 		public void actionPerformed(ActionEvent e) {
 			new VentanaPrintCarrito();
-			System.out.println("aaa");
+			System.out.println("Ventana print carrito");
 			
 		}
 	});
-	
-	
-	
 	}
 	
 	public static void main(String[] args) {
