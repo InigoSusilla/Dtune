@@ -10,7 +10,6 @@ import java.util.Date;
 
 import javax.print.attribute.standard.Media;
 import javax.sound.sampled.AudioInputStream;
-import javax.swing.JFrame;
 
 public class Cancion {
 	
@@ -96,19 +95,16 @@ public class Cancion {
 	public static void main(String[] args) {
 		
 		
-		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
 		
-		Date d = null;
-		try {
-			d = new SimpleDateFormat().parse("1090-09-12");
-		} catch (ParseException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+		
+		//SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+		//d = new sdf.parse("1090-09-12");
+		
+		
 		
 
 		
-		Cancion thunder = new Cancion("Thunderstruck","AC/DC",(float)5.5,true, d ,"Rock","demosCanciones/Thunder.mp3",(float)5.3);
+	//	Cancion thunder = new Cancion("Thunderstruck","AC/DC",(float)5.5,true, d ,"Rock","demosCanciones/Thunder.mp3",(float)5.3);
 		
 		
 
