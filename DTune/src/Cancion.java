@@ -10,8 +10,9 @@ import java.util.Date;
 
 import javax.print.attribute.standard.Media;
 import javax.sound.sampled.AudioInputStream;
+import javax.swing.JFrame;
 
-public class Cancion {
+public class Cancion extends JFrame {
 	
 	
 	public String nombre;

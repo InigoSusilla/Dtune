@@ -12,6 +12,35 @@ import javax.swing.JButton;
 
 public class VentanaIniciarSesion extends JFrame {
 
+	public String usuario;
+	public String contrasena;
+	
+	@Override
+	public String toString() {
+		return "VentanaIniciarSesion [usuario=" + usuario + ", contrasena=" + contrasena + "]";
+	}
+
+
+	public String getUsuario() {
+		return usuario;
+	}
+
+
+	public void setUsuario(String usuario) {
+		this.usuario = usuario;
+	}
+
+
+	public String getContrasena() {
+		return contrasena;
+	}
+
+
+	public void setContrasena(String contrasena) {
+		this.contrasena = contrasena;
+	}
+
+
 	private JPanel contentPane;
 	private JTextField txtUsuario;
 	private JTextField infoUsuario;
@@ -68,7 +97,7 @@ public class VentanaIniciarSesion extends JFrame {
 		panelBotonesContrasena.add(infoContrasena);
 		infoContrasena.setColumns(10);
 			
-		setSize(250,150);
+		setSize(350,150);
 		setVisible(true);
 	}
 	

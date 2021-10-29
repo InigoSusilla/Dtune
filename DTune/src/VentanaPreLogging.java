@@ -12,6 +12,30 @@ import javax.swing.JLabel;
 import javax.swing.JButton;
 
 public class VentanaPreLogging extends JFrame {
+	
+	public String iniciarSesion;
+	public String crearCuenta;
+
+	@Override
+	public String toString() {
+		return "VentanaPreLogging [iniciarSesion=" + iniciarSesion + ", crearCuenta=" + crearCuenta + "]";
+	}
+
+	public String getIniciarSesion() {
+		return iniciarSesion;
+	}
+
+	public void setIniciarSesion(String iniciarSesion) {
+		this.iniciarSesion = iniciarSesion;
+	}
+
+	public String getCrearCuenta() {
+		return crearCuenta;
+	}
+
+	public void setCrearCuenta(String crearCuenta) {
+		this.crearCuenta = crearCuenta;
+	}
 
 	private JPanel contentPane;
 
