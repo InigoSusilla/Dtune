@@ -72,7 +72,7 @@ public class VentanaPreLogging extends JFrame {
 		
 		JButton btnCrearCuenta = new JButton("Crear cuenta");
 		contentPane.add(btnCrearCuenta, BorderLayout.SOUTH);
-		setSize(400,150);
+		setSize(400,120);
 		
 		btnCrearCuenta.addActionListener(new ActionListener() {
 			

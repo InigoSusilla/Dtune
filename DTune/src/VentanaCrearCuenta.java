@@ -70,6 +70,7 @@ public class VentanaCrearCuenta extends JFrame {
 		
 		JPanel PanelRegistrar = new JPanel();
 		contentPane.add(PanelRegistrar, BorderLayout.SOUTH);
+		PanelRegistrar.setLayout(new FlowLayout(FlowLayout.CENTER, 5, 5));
 		
 		JButton btnRegistrar = new JButton("Registrar");
 		PanelRegistrar.add(btnRegistrar);

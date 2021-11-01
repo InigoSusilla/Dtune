@@ -62,10 +62,10 @@ public class VentanaIniciarSesion extends JFrame {
 		
 		JPanel panelIniciarSesion = new JPanel();
 		contentPane.add(panelIniciarSesion, BorderLayout.SOUTH);
-		panelIniciarSesion.setLayout(new BorderLayout(0, 0));
+		panelIniciarSesion.setLayout(new FlowLayout(FlowLayout.CENTER, 5, 5));
 		
 		JButton btnNewButton = new JButton("Iniciar Sesi\u00F3n");
-		panelIniciarSesion.add(btnNewButton, BorderLayout.NORTH);
+		panelIniciarSesion.add(btnNewButton);
 		
 		JPanel panelBotones = new JPanel();
 		contentPane.add(panelBotones, BorderLayout.CENTER);
