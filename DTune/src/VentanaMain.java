@@ -56,19 +56,38 @@ public class VentanaMain extends JFrame {
 		
 		JPanel panelBotones = new JPanel();
 		panelCentro.add(panelBotones);
-		panelBotones.setLayout(new GridLayout(3, 0, 0, 0));
+		panelBotones.setLayout(new GridLayout(3, 1, 3, 1));
+		
+		JPanel panelAnadirCarrito = new JPanel();
+		panelBotones.add(panelAnadirCarrito);
 		
 		JButton btnAnadirCarrito = new JButton("Añadir Carrito");
-		panelBotones.add(btnAnadirCarrito);
-		btnAnadirCarrito.setSize(20, 20);
+		panelAnadirCarrito.add(btnAnadirCarrito);
 		
-		JButton btnRetirarCarrito = new JButton("Retirar Carrito");
-		panelBotones.add(btnRetirarCarrito);
-		btnRetirarCarrito.setSize(20,20);
+		JPanel panelRetirar = new JPanel();
+		panelBotones.add(panelRetirar);
+		
+		JButton btnQuitarCarrito = new JButton("Retirar del carrito");
+		panelRetirar.add(btnQuitarCarrito);
+		
+		JPanel panelFinalizar = new JPanel();
+		panelBotones.add(panelFinalizar);
 		
 		JButton btnFinalizar = new JButton("Finalizar Compra");
-		panelBotones.add(btnFinalizar);
-		btnFinalizar.setSize(20,20);
+		panelFinalizar.add(btnFinalizar);
+		
+		
+		
+		
+		btnFinalizar.addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				new VentanaPrintCarrito();
+				System.out.println("Ventana print carrito");
+				
+			}
+		});
 		
 		JPanel panelCarrito = new JPanel();
 		panelCentro.add(panelCarrito);
@@ -87,17 +106,6 @@ public class VentanaMain extends JFrame {
 		public void actionPerformed(ActionEvent e) {
 			new VentanaPreLogging();
 			System.out.println("Ventana pre iniciar");
-			
-		}
-	});
-	
-	
-	btnFinalizar.addActionListener(new ActionListener() {
-		
-		@Override
-		public void actionPerformed(ActionEvent e) {
-			new VentanaPrintCarrito();
-			System.out.println("Ventana print carrito");
 			
 		}
 	});

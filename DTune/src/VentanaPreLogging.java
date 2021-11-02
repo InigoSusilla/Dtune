@@ -53,7 +53,7 @@ public class VentanaPreLogging extends JFrame {
 		setContentPane(contentPane);
 		contentPane.setLayout(new BorderLayout(0, 0));
 		
-		JLabel lblNewLabel = new JLabel("");
+		JLabel lblNewLabel = new JLabel();
 		contentPane.add(lblNewLabel);
 		
 		JButton btnIniciarSesion = new JButton("Iniciar Sesi\u00F3n");
