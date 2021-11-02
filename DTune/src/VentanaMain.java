@@ -41,6 +41,13 @@ public class VentanaMain extends JFrame {
 		JComboBox comboBoxGenero = new JComboBox();
 		panelMusica.add(comboBoxGenero, BorderLayout.NORTH);
 		
+		comboBoxGenero.addItem("Todos los géneros");   
+		//Hay que añador aqui todos los géneros de las canciones
+		comboBoxGenero.addItem("Rock");
+		comboBoxGenero.addActionListener(comboBoxGenero);
+		comboBoxGenero.addItem("Pop");
+		
+		
 		JScrollBar scrollCanciones = new JScrollBar();
 		panelMusica.add(scrollCanciones, BorderLayout.CENTER);
 		
@@ -124,4 +131,7 @@ public class VentanaMain extends JFrame {
 		});
 
 }
+	
+	
+	
 }
