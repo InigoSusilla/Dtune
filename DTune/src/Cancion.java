@@ -100,17 +100,13 @@ public class Cancion {
 		
 		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
 		try {
-			Date d = sdf.parse("1090-09-12");
+			Date fechatmp = sdf.parse("1090-09-12");
+			System.out.println("Exito en el parse");
 		} catch (ParseException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+			System.out.println("Fallo al parsear");
 		}
 		
-		
-		
-
-		
-	//	Cancion thunder = new Cancion("Thunderstruck","AC/DC",(float)5.5,true, d ,"Rock","demosCanciones/Thunder.mp3",(float)5.3);
+		//Cancion thunder = new Cancion("Thunderstruck","AC/DC",(float)5.5,true, fechatmp ,"Rock","demosCanciones/Thunder.mp3",(float)5.3);
 		
 		
 

@@ -24,6 +24,17 @@ public class VentanaMain extends JFrame {
 		JButton btnPreviewCancion = new JButton("Reproducir Cancion");
 		PanelPreview.add(btnPreviewCancion);
 		
+		btnPreviewCancion.addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				Reproductor.ReproducirCancion("demosCanciones/demoThunder.mp3");
+				
+				
+				
+			}
+		});
+		
 		JPanel panelIniciarSesion = new JPanel();
 		getContentPane().add(panelIniciarSesion, BorderLayout.NORTH);
 		
@@ -82,9 +93,6 @@ public class VentanaMain extends JFrame {
 		
 		JButton btnFinalizar = new JButton("Finalizar Compra");
 		panelFinalizar.add(btnFinalizar);
-		
-		
-		
 		
 		btnFinalizar.addActionListener(new ActionListener() {
 			
