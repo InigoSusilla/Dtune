@@ -30,8 +30,7 @@ public class VentanaMain extends JFrame {
 			public void actionPerformed(ActionEvent e) {
 				Reproductor.ReproducirCancion("demosCanciones/demoThunder.mp3");
 				
-				
-				
+		
 			}
 		});
 		
@@ -55,9 +54,20 @@ public class VentanaMain extends JFrame {
 		comboBoxGenero.addItem("Todos los géneros");   
 		//Hay que añador aqui todos los géneros de las canciones
 		comboBoxGenero.addItem("Rock");
-		comboBoxGenero.addActionListener(comboBoxGenero);
 		comboBoxGenero.addItem("Pop");
 		
+		
+		//Ordenar las canciones por el género seleccionado
+		comboBoxGenero.addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				String genero = (String) comboBoxGenero.getSelectedItem();
+				System.out.println(genero);
+				
+				}
+			});
+			
 		
 		JScrollBar scrollCanciones = new JScrollBar();
 		panelMusica.add(scrollCanciones, BorderLayout.CENTER);
