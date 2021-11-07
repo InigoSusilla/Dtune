@@ -4,10 +4,18 @@ import java.awt.EventQueue;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
+
+import tienda.Milanuncios;
+import tienda.Usuario;
+
 import java.awt.FlowLayout;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+
 import javax.swing.JTextPane;
 import javax.swing.JTextField;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JButton;
 
 public class VentanaCrearCuenta extends JFrame {
@@ -47,6 +55,8 @@ public class VentanaCrearCuenta extends JFrame {
 	 * Create the frame.
 	 */
 	public VentanaCrearCuenta() {
+		private JTextField txtNombre,txtCorreo;
+		
 		setTitle("DTune Crear cuenta");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 450, 300);
@@ -54,6 +64,8 @@ public class VentanaCrearCuenta extends JFrame {
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
 		contentPane.setLayout(new BorderLayout(0, 0));
+		
+		//Dtune.cargarUsuariosDeFichero();
 		
 		JPanel PanelUsuario = new JPanel();
 		contentPane.add(PanelUsuario, BorderLayout.NORTH);
@@ -74,7 +86,30 @@ public class VentanaCrearCuenta extends JFrame {
 		
 		JButton btnRegistrar = new JButton("Registrar");
 		PanelRegistrar.add(btnRegistrar);
-		
+				btnRegistrar.addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				// TODO Auto-generated method stub
+				
+				String nom = txtNombre.getText();
+				String con = String.valueOf(txtContrasenia.getPassword());
+				
+				
+				
+				if( !nom.equals("") && !con.equals("")){
+					u = new Usuario( nom,  dni,  con, cor, Integer.parseInt(tel));
+					Milanuncios.addUsuario(u);
+					JOptionPane.showMessageDialog(null, "Te has registrado correctamente");
+					
+					txtNombre.setText("");
+					txtContrasenia.setText("");
+					
+				}
+			}
+		});
+				
+				
 		JPanel PanelContrasena = new JPanel();
 		contentPane.add(PanelContrasena, BorderLayout.CENTER);
 		
