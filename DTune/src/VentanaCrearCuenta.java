@@ -5,8 +5,8 @@ import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 
-import tienda.Milanuncios;
-import tienda.Usuario;
+
+
 
 import java.awt.FlowLayout;
 import java.awt.event.ActionEvent;
@@ -55,7 +55,7 @@ public class VentanaCrearCuenta extends JFrame {
 	 * Create the frame.
 	 */
 	public VentanaCrearCuenta() {
-		private JTextField txtNombre,txtCorreo;
+		
 		
 		setTitle("DTune Crear cuenta");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -98,8 +98,8 @@ public class VentanaCrearCuenta extends JFrame {
 				
 				
 				if( !nom.equals("") && !con.equals("")){
-					u = new Usuario( nom,  dni,  con, cor, Integer.parseInt(tel));
-					Milanuncios.addUsuario(u);
+					u = new Usuario( nom,  con  );
+					Dtune.addUsuario(u);
 					JOptionPane.showMessageDialog(null, "Te has registrado correctamente");
 					
 					txtNombre.setText("");
