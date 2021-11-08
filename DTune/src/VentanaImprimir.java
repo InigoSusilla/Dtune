@@ -1,6 +1,11 @@
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import java.awt.BorderLayout;
+import java.io.FileNotFoundException;
+import java.io.PrintWriter;
+import java.sql.Date;
+import java.text.SimpleDateFormat;
+
 import javax.swing.JButton;
 import javax.swing.SwingConstants;
 
@@ -33,5 +38,5 @@ public class VentanaImprimir extends JFrame{
 		getContentPane().add(btnImprimir, BorderLayout.SOUTH);
 		setVisible(true);
 	}
-
+	
 }
