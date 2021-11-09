@@ -51,13 +51,16 @@ public class VentanaMain extends JFrame {
 		JComboBox comboBoxGenero = new JComboBox();
 		panelMusica.add(comboBoxGenero, BorderLayout.NORTH);
 		
-		comboBoxGenero.addItem("Todos los géneros");   
-		//Hay que añador aqui todos los géneros de las canciones
+		comboBoxGenero.addItem("Todos los gï¿½neros");   
+		//Hay que aï¿½ador aqui todos los gï¿½neros de las canciones
 		comboBoxGenero.addItem("Rock");
 		comboBoxGenero.addItem("Pop");
+		comboBoxGenero.addItem("Reguetton");
+		comboBoxGenero.addItem("Techno");
 		
 		
-		//Ordenar las canciones por el género seleccionado
+		
+		//Ordenar las canciones por el gï¿½nero seleccionado
 		comboBoxGenero.addActionListener(new ActionListener() {
 			
 			@Override

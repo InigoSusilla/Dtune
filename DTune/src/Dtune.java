@@ -10,7 +10,7 @@ import java.util.HashMap;
 
 
 
-public class Dtune {
+public class Dtune extends VentanaCrearCuenta {
 	//Creacion del mapa
 		
 			private static HashMap<String, Usuario> usuarios = new HashMap<>();

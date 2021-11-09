@@ -18,7 +18,7 @@ import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JButton;
 
-public class VentanaCrearCuenta extends JFrame {
+public class VentanaCrearCuenta extends JFrame  {
 
 	public String usuario;
 	public String contrasena;
@@ -92,18 +92,18 @@ public class VentanaCrearCuenta extends JFrame {
 			public void actionPerformed(ActionEvent e) {
 				// TODO Auto-generated method stub
 				
-				String nom = txtNombre.getText();
-				String con = String.valueOf(txtContrasenia.getPassword());
+				String usu = txtUsuario.getText();
+				String con = String.valueOf(txtContrasena.getPassword());
 				
 				
 				
-				if( !nom.equals("") && !con.equals("")){
-					u = new Usuario( nom,  con  );
+				if( !usu.equals("") && !con.equals("")){
+					u = new Usuario( usu,  con  );
 					Dtune.addUsuario(u);
 					JOptionPane.showMessageDialog(null, "Te has registrado correctamente");
 					
-					txtNombre.setText("");
-					txtContrasenia.setText("");
+					txtUsuario.setText("");
+					txtContrasena.setText("");
 					
 				}
 			}
