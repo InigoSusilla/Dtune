@@ -97,7 +97,7 @@ public class VentanaCrearCuenta extends JFrame  {
 				
 				
 				
-				if( !usu.equals("") && !con.equals("")){
+				if( !Usuario.equals("") && !Contrasena.equals("")){
 					Usuario = new Usuario();
 					Dtune.addUsuario(Usuario);
 					JOptionPane.showMessageDialog(null, "Te has registrado correctamente");
