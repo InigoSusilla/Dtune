@@ -20,29 +20,29 @@ import javax.swing.JButton;
 
 public class VentanaCrearCuenta extends JFrame  {
 
-	public String usuario;
-	public String contrasena;
+	public String Usuario;
+	public String Contrasena;
 	
 
 	@Override
 	public String toString() {
-		return "VentanaCrearCuenta [usuario=" + usuario + ", contrasena=" + contrasena + "]";
+		return "VentanaCrearCuenta [Usuario=" + Usuario + ", Contrasena=" + Contrasena + "]";
 	}
 
 	public String getUsuario() {
-		return usuario;
+		return Usuario;
 	}
 
 	public void setUsuario(String usuario) {
-		this.usuario = usuario;
+		this.Usuario = Usuario;
 	}
 
 	public String getContrasena() {
-		return contrasena;
+		return Contrasena;
 	}
 
 	public void setContrasena(String contrasena) {
-		this.contrasena = contrasena;
+		this.Contrasena = Contrasena;
 	}
 
 	private JPanel contentPane;
@@ -92,14 +92,14 @@ public class VentanaCrearCuenta extends JFrame  {
 			public void actionPerformed(ActionEvent e) {
 				// TODO Auto-generated method stub
 				
-				String usu = txtUsuario.getText();
-				String con = String.valueOf(txtContrasena.getPassword());
+				String Usuario = txtUsuario.getText();
+				String Contrasena = String.valueOf(txtContrasena.getText());
 				
 				
 				
 				if( !usu.equals("") && !con.equals("")){
-					u = new Usuario( usu,  con  );
-					Dtune.addUsuario(u);
+					Usuario = new Usuario();
+					Dtune.addUsuario(Usuario);
 					JOptionPane.showMessageDialog(null, "Te has registrado correctamente");
 					
 					txtUsuario.setText("");
