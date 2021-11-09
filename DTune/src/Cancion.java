@@ -90,6 +90,7 @@ public class Cancion {
 		this.ruta = ruta;
 		this.duracion = duracion;
 	}
+	
 
 
 
@@ -99,15 +100,16 @@ public class Cancion {
 		
 		
 		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+		
 		try {
-			Date fechatmp = sdf.parse("1090-09-12");
-			System.out.println("Exito en el parse");
+			Cancion thunder = new Cancion("Thunderstruck","AC/DC",(float)5.5,true, sdf.parse("1090-09-12") ,"Rock","demosCanciones/Thunder.mp3",(float)5.3);
 		} catch (ParseException e) {
-			System.out.println("Fallo al parsear");
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			System.out.println("Fallo al crear la cancion");
+			
 		}
-		
-		//Cancion thunder = new Cancion("Thunderstruck","AC/DC",(float)5.5,true, fechatmp ,"Rock","demosCanciones/Thunder.mp3",(float)5.3);
-		
+
 		
 
 	}
