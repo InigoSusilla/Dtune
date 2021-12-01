@@ -49,6 +49,9 @@ public class Cancion {
 	public void setEsVinillo(boolean esVinillo) {
 		this.esVinillo = esVinillo;
 	}
+	public boolean getEsVinillo() {
+		return esVinillo;
+	}
 	public Date getFechaLanzamiento() {
 		return fechaLanzamiento;
 	}
