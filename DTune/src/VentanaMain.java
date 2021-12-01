@@ -11,6 +11,8 @@ import javax.swing.JButton;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.sql.Connection;
+import java.sql.Statement;
 
 import javax.swing.JScrollBar;
 import javax.swing.JComboBox;
@@ -134,9 +136,6 @@ public class VentanaMain extends JFrame {
 		
 		setSize(1900, 800);
 	
-	
-	
-	
 	btnIniciarSesion.addActionListener(new ActionListener() {
 		
 		@Override
@@ -148,7 +147,23 @@ public class VentanaMain extends JFrame {
 	});
 	}
 	
+	
 	public static void main(String[] args) {
+				try {
+					Connection con =BaseDeDatos.initBD();
+					BaseDeDatos.CrearTablasBD(con);
+					Statement stt = con.createStatement();
+					BaseDeDatos.closeBD(con, stt);
+					VentanaMain frame = new VentanaMain();
+					frame.setVisible(true);
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
+		
+
+}
+/** 
+ 	public static void main(String[] args) {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
@@ -161,7 +176,6 @@ public class VentanaMain extends JFrame {
 		});
 
 }
-	
-	
+ **/
 	
 }

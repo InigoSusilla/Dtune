@@ -12,6 +12,17 @@ import javax.swing.JOptionPane;
 public class BaseDeDatos {
 	
 	public static Connection initBD() {
+		try {
+			Class.forName("org.sqlite.JDBC");
+			Connection con = DriverManager.getConnection("jdbc:sqlite:" + "DTuneBD.db");
+			return con;
+		} catch (ClassNotFoundException | SQLException e) {
+			return null;
+		}
+	}
+	
+	/**
+	 public static Connection initBD() {
 		Connection con = null;
 		try {
 			Class.forName("org.sqlite.JDBC");
@@ -21,6 +32,7 @@ public class BaseDeDatos {
 			return null;
 		}
 	}
+	 **/
 	
 	public static void closeBD(Connection con, Statement stt) {
 			try {
@@ -49,6 +61,7 @@ public class BaseDeDatos {
 			return null;
 		}
 	}
+	
 	
 	
 	public static void insertarUsuario(Usuario u) {
@@ -112,6 +125,26 @@ public class BaseDeDatos {
 						//RESULTADO = 2 INCORRECTO
 	}
 	
+	public static Usuario mostrarUsuario(String usuario) {
+		Connection con = BaseDeDatos.initBD();
+		String query = "SELECT * FROM Usuarios WHERE usuario = '"+usuario+"'";
+		Statement st = null;
+		Usuario u = null;
+		try {
+			st = con.createStatement();
+			ResultSet rs = st.executeQuery(query);
+			if(rs.next()) {
+				String c = rs.getString("contrasenya");
+				u = new Usuario(usuario, c);
+			}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} finally {
+			closeBD(con, st);
+		}
+		return u;
+	}
 	
 	public static void insertarCancion(Cancion c) {
 		Connection con = BaseDeDatos.initBD();
@@ -153,11 +186,20 @@ public class BaseDeDatos {
 		try {
 			stt = con.createStatement();
 			ResultSet rs = stt.executeQuery(sentSQL);
-			String nom = rs.getString("nombre");
-			if(nom.equals(null)) {
-				resultado = 1;
+			if(rs.next()){
+				String nom = rs.getString("nombre");
+				if(nom.equals(nombre)) {
+					resultado = 2;//YA EXISTE
+				}else {
+					resultado = 1;//NO EXISTE
+				}
 			}else {
-				resultado = 2;
+				String nom = rs.getString("nombre");
+				if(nom.equals(nombre)) {
+					resultado = 2;//YA EXISTE
+				}else {
+					resultado = 1;//NO EXISTE
+				}
 			}
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
@@ -168,7 +210,6 @@ public class BaseDeDatos {
 		}
 		return resultado;
 	}
-	
 	
 	
 }

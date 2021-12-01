@@ -11,6 +11,7 @@ import javax.swing.border.EmptyBorder;
 import java.awt.FlowLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.sql.Connection;
 
 import javax.swing.JTextPane;
 import javax.swing.JTextField;
@@ -56,7 +57,6 @@ public class VentanaCrearCuenta extends JFrame  {
 	 */
 	public VentanaCrearCuenta() {
 		
-		
 		setTitle("DTune Crear cuenta");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 450, 300);
@@ -86,7 +86,35 @@ public class VentanaCrearCuenta extends JFrame  {
 		
 		JButton btnRegistrar = new JButton("Registrar");
 		PanelRegistrar.add(btnRegistrar);
-				btnRegistrar.addActionListener(new ActionListener() {
+		
+		btnRegistrar.addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				// TODO Auto-generated method stub
+				String nom = txtUsuario.getText();
+				String c = txtContrasena.getText();
+				if(!nom.equals("") && !c.equals("") ) {
+					
+					if(BaseDeDatos.comprobarRepeticionUsuario(nom) == 1) {
+						Usuario u = new Usuario(nom, c);
+						BaseDeDatos.insertarUsuario(u);
+						BaseDeDatos.mostrarUsuario(nom);
+						JOptionPane.showMessageDialog(null, "Te has registrado correctamente");
+						
+					}else {
+						JOptionPane.showMessageDialog(null, "ERROR! Ese nombre de usuario ya existe");
+					}
+					//btnRegistrar.setEnabled(false);
+				}else{
+					JOptionPane.showMessageDialog(null, "ERROR! El nombre o la contraseña esta vacio");
+				}
+				txtUsuario.setText("");
+				txtContrasena.setText("");
+			}
+		});
+		
+		/**btnRegistrar.addActionListener(new ActionListener() {
 			
 			@Override
 			public void actionPerformed(ActionEvent e) {
@@ -106,7 +134,7 @@ public class VentanaCrearCuenta extends JFrame  {
 					
 				}
 			}
-		});
+		});**/
 				
 				
 		JPanel PanelContrasena = new JPanel();
