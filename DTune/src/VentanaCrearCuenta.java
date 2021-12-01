@@ -34,7 +34,7 @@ public class VentanaCrearCuenta extends JFrame  {
 	}
 
 	public void setUsuario(String usuario) {
-		this.Usuario = Usuario;
+		this.Usuario = usuario;
 	}
 
 	public String getContrasena() {
@@ -42,7 +42,7 @@ public class VentanaCrearCuenta extends JFrame  {
 	}
 
 	public void setContrasena(String contrasena) {
-		this.Contrasena = Contrasena;
+		this.Contrasena = contrasena;
 	}
 
 	private JPanel contentPane;
