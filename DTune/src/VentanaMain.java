@@ -6,6 +6,7 @@ import java.awt.EventQueue;
 import javax.swing.JScrollPane;
 import javax.swing.JRadioButton;
 import javax.swing.SwingConstants;
+import javax.swing.ButtonGroup;
 import javax.swing.JButton;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
@@ -25,12 +26,16 @@ public class VentanaMain extends JFrame {
 		PanelPreview.add(btnPreviewCancion);
 		
 		btnPreviewCancion.addActionListener(new ActionListener() {
-			
+			Thread hilo = new Thread( new Runnable() {
+				@Override
+				public void run() {
+					// TODO Auto-generated method stub
+					Reproductor.ReproducirCancion("C:\\Users\\jbarr\\DTUNE_B\\Dtune\\DTune\\demosCanciones\\DemoZapatillas.mp3");
+				}
+			});
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				Reproductor.ReproducirCancion("demosCanciones/demoThunder.mp3");
-				
-		
+				hilo.start();
 			}
 		});
 		
@@ -84,6 +89,10 @@ public class VentanaMain extends JFrame {
 		
 		JRadioButton rdbtnVinilo = new JRadioButton("Vinilo");
 		panelMusicaBotones.add(rdbtnVinilo);
+		
+		ButtonGroup bg = new ButtonGroup(); //QUE NO SE SELECCIONEN LOS DOS BOTNES AL MISMO TIMEPO
+		bg.add(rdbtnVinilo);
+		bg.add(rdbtnCD);
 		
 		JPanel panelBotones = new JPanel();
 		panelCentro.add(panelBotones);

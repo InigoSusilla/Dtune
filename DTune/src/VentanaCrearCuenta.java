@@ -96,10 +96,9 @@ public class VentanaCrearCuenta extends JFrame  {
 				String Contrasena = String.valueOf(txtContrasena.getText());
 				
 				
-				
 				if( !Usuario.equals("") && !Contrasena.equals("")){
-					Usuario = new Usuario();
-					Dtune.addUsuario(Usuario);
+					Usuario u = new Usuario(Usuario, Contrasena);
+					Dtune.addUsuario(u);
 					JOptionPane.showMessageDialog(null, "Te has registrado correctamente");
 					
 					txtUsuario.setText("");
