@@ -58,7 +58,7 @@ public class VentanaCrearCuenta extends JFrame  {
 	public VentanaCrearCuenta() {
 		
 		setTitle("DTune Crear cuenta");
-		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		setBounds(100, 100, 450, 300);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
@@ -92,50 +92,30 @@ public class VentanaCrearCuenta extends JFrame  {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				// TODO Auto-generated method stub
-				String nom = txtUsuario.getText();
-				String c = txtContrasena.getText();
-				if(!nom.equals("") && !c.equals("") ) {
-					
+				String nom = infoUsuario.getText();
+				String c = infoContrasena.getText();
+				
+				if(!nom.equals("") && !c.equals("") ) {//FUNCIONA
 					if(BaseDeDatos.comprobarRepeticionUsuario(nom) == 1) {
 						Usuario u = new Usuario(nom, c);
 						BaseDeDatos.insertarUsuario(u);
 						BaseDeDatos.mostrarUsuario(nom);
 						JOptionPane.showMessageDialog(null, "Te has registrado correctamente");
 						
-					}else {
-						JOptionPane.showMessageDialog(null, "ERROR! Ese nombre de usuario ya existe");
+					}else if(BaseDeDatos.comprobarRepeticionUsuario(nom) == 2){
+						JOptionPane.showMessageDialog(null, "Ese nombre de usuario ya existe");
 					}
 					//btnRegistrar.setEnabled(false);
-				}else{
-					JOptionPane.showMessageDialog(null, "ERROR! El nombre o la contraseña esta vacio");
+					else{
+					JOptionPane.showMessageDialog(null, "El nombre y/o la contraseña esta vacio");
+				infoUsuario.setText("");
+				infoContrasena.setText("");
+					}
+				}else {
+					JOptionPane.showMessageDialog(null,"El nombre y/o la contraseña esta vacio");
 				}
-				txtUsuario.setText("");
-				txtContrasena.setText("");
-			}
-		});
-		
-		/**btnRegistrar.addActionListener(new ActionListener() {
-			
-			@Override
-			public void actionPerformed(ActionEvent e) {
-				// TODO Auto-generated method stub
-				
-				String Usuario = txtUsuario.getText();
-				String Contrasena = String.valueOf(txtContrasena.getText());
-				
-				
-				if( !Usuario.equals("") && !Contrasena.equals("")){
-					Usuario u = new Usuario(Usuario, Contrasena);
-					Dtune.addUsuario(u);
-					JOptionPane.showMessageDialog(null, "Te has registrado correctamente");
-					
-					txtUsuario.setText("");
-					txtContrasena.setText("");
-					
-				}
-			}
-		});**/
-				
+	}
+});
 				
 		JPanel PanelContrasena = new JPanel();
 		contentPane.add(PanelContrasena, BorderLayout.CENTER);

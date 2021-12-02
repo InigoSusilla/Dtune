@@ -2,10 +2,16 @@ import java.awt.BorderLayout;
 import java.awt.EventQueue;
 
 import javax.swing.JFrame;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 import java.awt.FlowLayout;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.beans.PropertyChangeListener;
+
 import javax.swing.JTextField;
+import javax.swing.Action;
 import javax.swing.BoxLayout;
 import javax.swing.JScrollPane;
 import javax.swing.JButton;
@@ -53,7 +59,7 @@ public class VentanaIniciarSesion extends JFrame {
 	 */
 	public VentanaIniciarSesion() {
 		setTitle("DTune Iniciar Sesi\u00F3n");
-		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		setBounds(100, 100, 450, 300);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
@@ -64,8 +70,30 @@ public class VentanaIniciarSesion extends JFrame {
 		contentPane.add(panelIniciarSesion, BorderLayout.SOUTH);
 		panelIniciarSesion.setLayout(new FlowLayout(FlowLayout.CENTER, 5, 5));
 		
-		JButton btnNewButton = new JButton("Iniciar Sesi\u00F3n");
-		panelIniciarSesion.add(btnNewButton);
+		JButton btnInicioSesion = new JButton("Iniciar Sesi\u00F3n");
+		panelIniciarSesion.add(btnInicioSesion);
+		
+		btnInicioSesion.addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				
+				String cont = infoContrasena.getText();
+				String usu = infoUsuario.getText();
+			if(!usu.equals("") && !cont.equals("") ) {
+				if (BaseDeDatos.comprobacionUsuario(usu, cont ) == 1) {
+					JOptionPane.showMessageDialog(null, "Usuario y contraseña correctos");
+					new VentanaMain();
+				}else if(BaseDeDatos.comprobacionUsuario(usu, cont ) == 2) {
+					JOptionPane.showMessageDialog(null,"Contraseña incorrecta");
+				}else if(BaseDeDatos.comprobacionUsuario(usu, cont ) == 3) {
+					JOptionPane.showMessageDialog(null,"Usuario no encontrado");
+				}
+			}else {
+				JOptionPane.showMessageDialog(null,"El nombre y/o la contraseña esta vacio");
+			}
+		}
+		});
 		
 		JPanel panelBotones = new JPanel();
 		contentPane.add(panelBotones, BorderLayout.CENTER);
