@@ -26,7 +26,7 @@ public class BaseDeDatos {
 		Connection con = null;
 		try {
 			Class.forName("org.sqlite.JDBC");
-			con = DriverManager.getConnection("jdbc:sqlite:" + "DTuneBD");
+			con = DriverManager.getConnection("jdbc:sqlite:" + "DTuneBD.db");
 			return con;
 		} catch (ClassNotFoundException | SQLException e) {
 			return null;

@@ -149,6 +149,12 @@ public class VentanaMain extends JFrame {
 	
 	
 	public static void main(String[] args) {
+		try {
+			Class.forName("org.sqlite.JDBC");
+		} catch (ClassNotFoundException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		}
 				try {
 					Connection con =BaseDeDatos.initBD();
 					BaseDeDatos.CrearTablasBD(con);
