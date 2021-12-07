@@ -12,6 +12,7 @@ import javax.swing.JOptionPane;
 public class BaseDeDatos {
 	
 	public static Connection initBD() {
+		
 		try {
 			Class.forName("org.sqlite.JDBC");
 			Connection con = DriverManager.getConnection("jdbc:sqlite:" + "DTuneBD.db");
@@ -211,6 +212,20 @@ public class BaseDeDatos {
 			BaseDeDatos.closeBD(con, stt);
 		}
 		return resultado;
+	}
+	
+	public ArrayList<Cancion> obtenerCanciones(){
+		
+		Connection con = BaseDeDatos.initBD();
+		Statement stt = null;
+		String sentSQL = "select * from Cancion";
+		
+		
+		return null;
+		
+	}
+	public static void main(String[] args) {
+		CrearTablasBD(BaseDeDatos.initBD());
 	}
 	
 	

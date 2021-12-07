@@ -9,7 +9,7 @@ import java.util.HashMap;
 public class Usuario {
 	public static final long serialVersionUID = 1L;    //Para poder escribirlo o leerlo del fichero
 	
-	private String nombre;
+	private static String nombre;
 	private String contrasenia;
 	//private int num_u = 0;
 	//private ArrayList<Integer> lNumU = new ArrayList<Integer>();
@@ -25,7 +25,7 @@ public class Usuario {
 		
 	}**/
 	//getters and setters
-	public String getNombre() {
+	public static String getNombre() {
 		return nombre;
 	}
 	public void setNombre(String nombre) {

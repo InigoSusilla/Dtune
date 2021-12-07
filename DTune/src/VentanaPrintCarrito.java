@@ -6,6 +6,7 @@ import java.io.FileNotFoundException;
 import java.io.PrintWriter;
 import java.sql.Date;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 
 import javax.swing.JFrame;
 import javax.swing.JPanel;
@@ -125,7 +126,8 @@ public class VentanaPrintCarrito extends JFrame {
 	private void cargarCarritoEnTextArea() {
 		String texto = "";
 		double total = 0;
-		for(Cancion c: Cancion) {
+		ArrayList<Cancion> listaCanciones = new ArrayList<>();
+		for(Cancion c: listaCanciones) {
 			texto = texto + c + "\n";
 			total = total + c.getPrecio();
 		}
