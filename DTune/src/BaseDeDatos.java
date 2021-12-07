@@ -22,19 +22,6 @@ public class BaseDeDatos {
 		}
 	}
 	
-	/**
-	 public static Connection initBD() {
-		Connection con = null;
-		try {
-			Class.forName("org.sqlite.JDBC");
-			con = DriverManager.getConnection("jdbc:sqlite:" + "DTuneBD.db");
-			return con;
-		} catch (ClassNotFoundException | SQLException e) {
-			return null;
-		}
-	}
-	 **/
-	
 	public static void closeBD(Connection con, Statement stt) {
 			try {
 				if (stt!=null) stt.close();
@@ -48,7 +35,9 @@ public class BaseDeDatos {
 			Statement statement = con.createStatement();
 			statement.executeUpdate("create table Usuarios"+
 						   "(nombre string, "+
-						   " contrasenia string)");
+						   " contrasenia string)" +
+						   "esAdministrador boolean, "
+						   );
 			statement.executeUpdate("create table Canciones"+
 					   "(nombre string, "+
 					   "autor string, "+
@@ -117,7 +106,7 @@ public class BaseDeDatos {
 			st = con.createStatement();
 			ResultSet rs = st.executeQuery(query);
 			if(rs.next()) {
-				String c = rs.getString("contrasenya");
+				String c = rs.getString("contrasenia");
 				u = new Usuario(nombre, c);
 			}
 		} catch (SQLException e) {
@@ -226,7 +215,7 @@ public class BaseDeDatos {
 	}
 	public static void main(String[] args) {
 		CrearTablasBD(BaseDeDatos.initBD());
+		System.out.println("ok");
 	}
-	
 	
 }

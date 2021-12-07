@@ -19,6 +19,7 @@ import javax.swing.JComboBox;
 
 public class VentanaMain extends JFrame {
 	public VentanaMain() {
+		setVisible(true);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		
 		JPanel PanelPreview = new JPanel();
@@ -147,41 +148,11 @@ public class VentanaMain extends JFrame {
 	});
 	}
 	
-	
 	public static void main(String[] args) {
-		try {
-			Class.forName("org.sqlite.JDBC");
-		} catch (ClassNotFoundException e1) {
-			// TODO Auto-generated catch block
-			e1.printStackTrace();
-		}
-				try {
-					Connection con =BaseDeDatos.initBD();
-					BaseDeDatos.CrearTablasBD(con);
-					Statement stt = con.createStatement();
-					BaseDeDatos.closeBD(con, stt);
-					VentanaMain frame = new VentanaMain();
-					frame.setVisible(true);
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
-		
+		new VentanaMain();
+	}
+	
+	
 
-}
-/** 
- 	public static void main(String[] args) {
-		EventQueue.invokeLater(new Runnable() {
-			public void run() {
-				try {
-					VentanaMain frame = new VentanaMain();
-					frame.setVisible(true);
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
-			}
-		});
-
-}
- **/
 	
 }
