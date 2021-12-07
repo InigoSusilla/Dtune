@@ -109,42 +109,42 @@ public class VentanaCrearCuenta extends JFrame  {
 								progreso.setValue(i);
 								try {
 									Thread.sleep(100);
+									System.out.println("a");
 								}
 								catch (InterruptedException e1) {
 									e1.printStackTrace();
 								}
 							}
+							// TODO Auto-generated method stub
+							String nom = infoUsuario.getText();
+							String c = infoContrasena.getText();
+							
+							
+							if(!nom.equals("") && !c.equals("") ) {//FUNCIONA
+								if(BaseDeDatos.comprobarRepeticionUsuario(nom) == 1) {
+									Usuario u = new Usuario(nom, c);
+									BaseDeDatos.insertarUsuario(u);
+									BaseDeDatos.mostrarUsuario(nom);
+									JOptionPane.showMessageDialog(null, "Te has registrado correctamente");
+									
+								}else if(BaseDeDatos.comprobarRepeticionUsuario(nom) == 2){
+									JOptionPane.showMessageDialog(null, "Ese nombre de usuario ya existe");
+								}
+								//btnRegistrar.setEnabled(false);
+								else{
+								JOptionPane.showMessageDialog(null, "El nombre y/o la contrase�a esta vacio");
+							infoUsuario.setText("");
+							infoContrasena.setText("");
+								}
+							}else {
+								JOptionPane.showMessageDialog(null,"El nombre y/o la contrase�a esta vacio");
+							}
+							lprogreso.setVisible(false);
+							progreso.setVisible(false);
 						}
-					});
-					
-			
-					
-					
-					
-				// TODO Auto-generated method stub
-				String nom = infoUsuario.getText();
-				String c = infoContrasena.getText();
-				
-				
-				if(!nom.equals("") && !c.equals("") ) {//FUNCIONA
-					if(BaseDeDatos.comprobarRepeticionUsuario(nom) == 1) {
-						Usuario u = new Usuario(nom, c);
-						BaseDeDatos.insertarUsuario(u);
-						BaseDeDatos.mostrarUsuario(nom);
-						JOptionPane.showMessageDialog(null, "Te has registrado correctamente");
 						
-					}else if(BaseDeDatos.comprobarRepeticionUsuario(nom) == 2){
-						JOptionPane.showMessageDialog(null, "Ese nombre de usuario ya existe");
-					}
-					//btnRegistrar.setEnabled(false);
-					else{
-					JOptionPane.showMessageDialog(null, "El nombre y/o la contrase�a esta vacio");
-				infoUsuario.setText("");
-				infoContrasena.setText("");
-					}
-				}else {
-					JOptionPane.showMessageDialog(null,"El nombre y/o la contrase�a esta vacio");
-				}
+					});
+					hilo.start();
 	}
 });
 
