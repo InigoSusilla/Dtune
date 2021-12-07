@@ -3,6 +3,7 @@ import java.awt.EventQueue;
 
 import javax.swing.JFrame;
 import javax.swing.JPanel;
+import javax.swing.JProgressBar;
 import javax.swing.border.EmptyBorder;
 
 
@@ -51,6 +52,9 @@ public class VentanaCrearCuenta extends JFrame  {
 	private JTextField infoUsuario;
 	private JTextField txtContrasena;
 	private JTextField infoContrasena;
+	
+	JLabel lprogreso;
+	JProgressBar progreso;
 
 	/**
 	 * Create the frame.
@@ -86,14 +90,39 @@ public class VentanaCrearCuenta extends JFrame  {
 		
 		JButton btnRegistrar = new JButton("Registrar");
 		PanelRegistrar.add(btnRegistrar);
+		lprogreso = new JLabel("Creando base de datos...");
+		lprogreso.setVisible(false);
+		progreso = new JProgressBar(0, 100);
+		progreso.setVisible(false);
 		
 		btnRegistrar.addActionListener(new ActionListener() {
 			
 			@Override
 			public void actionPerformed(ActionEvent e) {
+				
+					Thread hilo = new Thread(new Runnable() {
+						public void run() {
+							lprogreso.setVisible(true);
+							progreso.setVisible(true);
+							
+							for (int i = 0; i <= 100; i++) {
+								progreso.setValue(i);
+								try {
+									Thread.sleep(100);
+								}
+								catch (InterruptedException e1) {
+									e1.printStackTrace();
+								}
+							}
+						}
+					};
+					
+					
+					
 				// TODO Auto-generated method stub
 				String nom = infoUsuario.getText();
 				String c = infoContrasena.getText();
+				
 				
 				if(!nom.equals("") && !c.equals("") ) {//FUNCIONA
 					if(BaseDeDatos.comprobarRepeticionUsuario(nom) == 1) {
@@ -107,15 +136,16 @@ public class VentanaCrearCuenta extends JFrame  {
 					}
 					//btnRegistrar.setEnabled(false);
 					else{
-					JOptionPane.showMessageDialog(null, "El nombre y/o la contraseña esta vacio");
+					JOptionPane.showMessageDialog(null, "El nombre y/o la contraseï¿½a esta vacio");
 				infoUsuario.setText("");
 				infoContrasena.setText("");
 					}
 				}else {
-					JOptionPane.showMessageDialog(null,"El nombre y/o la contraseña esta vacio");
+					JOptionPane.showMessageDialog(null,"El nombre y/o la contraseï¿½a esta vacio");
 				}
 	}
 });
+
 				
 		JPanel PanelContrasena = new JPanel();
 		contentPane.add(PanelContrasena, BorderLayout.CENTER);
