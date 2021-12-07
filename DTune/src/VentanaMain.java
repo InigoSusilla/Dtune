@@ -98,6 +98,9 @@ public class VentanaMain extends JFrame {
 		bg.add(rdbtnVinilo);
 		bg.add(rdbtnCD);
 		
+		JButton btnAnadirCancion = new JButton("Cancion");
+		panelMusicaBotones.add(btnAnadirCancion);
+		
 		JPanel panelBotones = new JPanel();
 		panelCentro.add(panelBotones);
 		panelBotones.setLayout(new GridLayout(3, 1, 3, 1));
