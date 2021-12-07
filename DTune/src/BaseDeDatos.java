@@ -35,8 +35,8 @@ public class BaseDeDatos {
 			Statement statement = con.createStatement();
 			statement.executeUpdate("create table Usuarios"+
 						   "(nombre string, "+
-						   " contrasenia string)" +
-						   "esAdministrador boolean, "
+						   " contrasenia string" +
+						   "esAdministrador boolean) "
 						   );
 			statement.executeUpdate("create table Canciones"+
 					   "(nombre string, "+
@@ -215,7 +215,6 @@ public class BaseDeDatos {
 	}
 	public static void main(String[] args) {
 		CrearTablasBD(BaseDeDatos.initBD());
-		System.out.println("ok");
 	}
 	
 }
