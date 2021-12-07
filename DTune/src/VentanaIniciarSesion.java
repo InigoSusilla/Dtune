@@ -81,7 +81,7 @@ public class VentanaIniciarSesion extends JFrame {
 				String cont = infoContrasena.getText();
 				String usu = infoUsuario.getText();
 			if(usu.equals("") || cont.equals("") ) {
-				if (BaseDeDatos.comprobacionUsuario(usu, cont ) == 1) {
+				if (BaseDeDatos.comprobacionUsuario(usu, cont) == 1) {
 					JOptionPane.showMessageDialog(null, "Usuario y contraseña correctos");
 					new VentanaMain();
 				}else if(BaseDeDatos.comprobacionUsuario(usu, cont ) == 2) {
@@ -92,6 +92,10 @@ public class VentanaIniciarSesion extends JFrame {
 			}else {
 				JOptionPane.showMessageDialog(null,"El nombre y/o la contraseña esta vacio");
 			}
+			
+			
+			
+			
 		}
 		});
 		
