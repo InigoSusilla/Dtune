@@ -35,7 +35,7 @@ public class BaseDeDatos {
 			Statement statement = con.createStatement();
 			statement.executeUpdate("create table Usuarios"+
 						   "(nombre string, "+
-						   " contrasenia string" +
+						   " contrasenia string," +
 						   "esAdministrador boolean) "
 						   );
 			statement.executeUpdate("create table Canciones"+
@@ -213,6 +213,26 @@ public class BaseDeDatos {
 		return null;
 		
 	}
+	
+	public boolean esAdministrador(String usuario) throws SQLException {
+		Connection con = BaseDeDatos.initBD();
+		Statement stt = null;
+		String sentSQL = "select esAdministrador from Usuarios where nombre = '"+ usuario+"'";
+		stt = con.createStatement();
+		ResultSet rs = stt.executeQuery(sentSQL);
+		if(rs.next()){
+			boolean esAdmin = rs.getBoolean("esAdministrador");
+			if(esAdmin) {
+				return true;
+			}
+		
+		
+	}
+		return false;
+		
+	}
+	
+	
 	public static void main(String[] args) {
 		CrearTablasBD(BaseDeDatos.initBD());
 	}
