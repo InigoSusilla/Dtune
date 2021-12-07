@@ -4,7 +4,9 @@ import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.TreeMap;
 
 import javax.swing.JOptionPane;
@@ -43,6 +45,7 @@ public class BaseDeDatos {
 					   "autor string, "+
 					   "precio double, "+
 					   "esVinillo boolean, "+
+					   "fechaLanzamiento long," +
 					   "genero String, "+
 					   "ruta String,"+
 					   "duracion double)");
@@ -121,7 +124,9 @@ public class BaseDeDatos {
 	public static void insertarCancion(Cancion c) {
 		Connection con = BaseDeDatos.initBD();
 		Statement stt = null;
-		String sentSQL = "INSERT INTO Canciones VALUES('"+c.getNombre()+"','"+c.getAutor()+"',"+c.getPrecio()+","+c.getEsVinillo()+","+c.getFechaLanzamiento()+",'"+c.getGenero()+"','"+c.getRuta()+"',"+c.getDuracion()+")";
+		SimpleDateFormat sdf = new SimpleDateFormat( "dd/MM/yyyy" );
+		long milis = c.getFechaLanzamiento().getTime();
+		String sentSQL = "INSERT INTO Canciones VALUES('"+c.getNombre()+"','"+c.getAutor()+"',"+c.getPrecio()+","+c.getEsVinillo()+","+milis+",'"+c.getGenero()+"','"+c.getRuta()+"',"+c.getDuracion()+")";
 		try {
 			stt = con.createStatement();
 			stt.executeUpdate(sentSQL);
@@ -208,13 +213,43 @@ public class BaseDeDatos {
 		Connection con = BaseDeDatos.initBD();
 		Statement stt = null;
 		String sentSQL = "select * from Cancion";
+		ArrayList<Cancion> listaCanciones = new ArrayList<>();
+		try {
+			stt = con.createStatement();
+			ResultSet rs = stt.executeQuery(sentSQL);
+			while(rs.next()){
+				String nomb = rs.getString("nombre"); 
+				String aut = rs.getString("autor"); 
+				Double prec = rs.getDouble("precio");
+				boolean flan = rs.getBoolean("esVinillo");
+				long milisLanz = rs.getLong("fechaLanzamiento");
+				String gen = rs.getString("genero");
+				String rut = rs.getString("ruta");
+				Double dura = rs.getDouble("duracion");
+				
+				SimpleDateFormat sdf = new SimpleDateFormat( "dd/MM/yyyy" );
+				Date fechaLanz = new Date(milisLanz);
+				
+				Cancion pa = new Cancion(nomb, aut, prec , flan, fechaLanz, gen, rut, dura);
+				listaCanciones.add(pa);
+				
+				
+				
+				
+			}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		return listaCanciones;
+		}
 		
 		
-		return null;
 		
-	}
 	
-	public boolean esAdministrador(String usuario) throws SQLException {
+	
+	public static boolean esAdministrador(String usuario) throws SQLException {
 		Connection con = BaseDeDatos.initBD();
 		Statement stt = null;
 		String sentSQL = "select esAdministrador from Usuarios where nombre = '"+ usuario+"'";
@@ -224,17 +259,11 @@ public class BaseDeDatos {
 			boolean esAdmin = rs.getBoolean("esAdministrador");
 			if(esAdmin) {
 				return true;
-			}
-		
-		
+			}	
 	}
 		return false;
 		
 	}
 	
-	
-	public static void main(String[] args) {
-		CrearTablasBD(BaseDeDatos.initBD());
-	}
 	
 }

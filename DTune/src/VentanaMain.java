@@ -12,6 +12,7 @@ import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.sql.Connection;
+import java.sql.SQLException;
 import java.sql.Statement;
 
 import javax.swing.JScrollBar;
@@ -148,8 +149,9 @@ public class VentanaMain extends JFrame {
 	});
 	}
 	
-	public static void main(String[] args) {
+	public static void main(String[] args) throws SQLException {
 		new VentanaMain();
+		BaseDeDatos.esAdministrador(null);
 	}
 	
 	
