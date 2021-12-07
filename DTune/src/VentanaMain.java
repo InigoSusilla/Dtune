@@ -101,6 +101,16 @@ public class VentanaMain extends JFrame {
 		JButton btnAnadirCancion = new JButton("Cancion");
 		panelMusicaBotones.add(btnAnadirCancion);
 		
+		btnAnadirCancion.addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				new VentanaCrearCancion();
+				System.out.println("Ventana crear cancion");
+				
+			}
+		});
+		
 		JPanel panelBotones = new JPanel();
 		panelCentro.add(panelBotones);
 		panelBotones.setLayout(new GridLayout(3, 1, 3, 1));
