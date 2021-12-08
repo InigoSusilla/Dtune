@@ -124,7 +124,6 @@ public class BaseDeDatos {
 	public static void insertarCancion(Cancion c) {
 		Connection con = BaseDeDatos.initBD();
 		Statement stt = null;
-		SimpleDateFormat sdf = new SimpleDateFormat( "dd/MM/yyyy" );
 		long milis = c.getFechaLanzamiento().getTime();
 		String sentSQL = "INSERT INTO Canciones VALUES('"+c.getNombre()+"','"+c.getAutor()+"',"+c.getPrecio()+","+c.getEsVinillo()+","+milis+",'"+c.getGenero()+"','"+c.getRuta()+"',"+c.getDuracion()+")";
 		try {
@@ -208,11 +207,11 @@ public class BaseDeDatos {
 		return resultado;
 	}
 	
-	public ArrayList<Cancion> obtenerCanciones(){
+	public static ArrayList<Cancion> obtenerCanciones(){
 		
 		Connection con = BaseDeDatos.initBD();
 		Statement stt = null;
-		String sentSQL = "select * from Cancion";
+		String sentSQL = "select * from canciones";
 		ArrayList<Cancion> listaCanciones = new ArrayList<>();
 		try {
 			stt = con.createStatement();

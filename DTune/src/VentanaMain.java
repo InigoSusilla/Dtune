@@ -34,7 +34,7 @@ public class VentanaMain extends JFrame {
 				@Override
 				public void run() {
 					// TODO Auto-generated method stub
-					Reproductor.ReproducirCancion("C:\\Users\\jbarr\\DTUNE_B\\Dtune\\DTune\\demosCanciones\\DemoZapatillas.mp3");
+					Reproductor.ReproducirCancion("demosCanciones/DemoThunder.mp3");
 				}
 			});
 			@Override
@@ -150,6 +150,8 @@ public class VentanaMain extends JFrame {
 		panelCarrito.add(scrollCarrito);
 		
 		setSize(1900, 800);
+		
+		
 	
 	btnIniciarSesion.addActionListener(new ActionListener() {
 		
@@ -160,11 +162,15 @@ public class VentanaMain extends JFrame {
 			
 		}
 	});
+	
+	//Cargamos las canciones
+	
+	
 	}
 	
 	public static void main(String[] args) throws SQLException {
 		new VentanaMain();
-		BaseDeDatos.esAdministrador(null);
+		
 	}
 	
 	

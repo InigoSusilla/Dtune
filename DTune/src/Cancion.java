@@ -93,27 +93,4 @@ public class Cancion {
 		this.ruta = ruta;
 		this.duracion = duracion;
 	}
-	
-
-
-
-	public static void main(String[] args) {
-		
-		
-		
-		
-		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
-		
-		try {
-			Cancion thunder = new Cancion("Thunderstruck","AC/DC",(float)5.5,true, sdf.parse("1090-09-12") ,"Rock","demosCanciones/Thunder.mp3",(float)5.3);
-		} catch (ParseException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-			System.out.println("Fallo al crear la cancion");
-			
-		}
-
-		
-
-	}
 }
