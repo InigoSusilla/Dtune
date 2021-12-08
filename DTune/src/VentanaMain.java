@@ -1,4 +1,5 @@
 import javax.swing.JFrame;
+import javax.swing.JList;
 import javax.swing.JPanel;
 import java.awt.BorderLayout;
 import java.awt.EventQueue;
@@ -7,6 +8,7 @@ import javax.swing.JScrollPane;
 import javax.swing.JRadioButton;
 import javax.swing.SwingConstants;
 import javax.swing.ButtonGroup;
+import javax.swing.DefaultListModel;
 import javax.swing.JButton;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
@@ -147,8 +149,17 @@ public class VentanaMain extends JFrame {
 		JPanel panelCarrito = new JPanel();
 		panelCentro.add(panelCarrito);
 		
-		JScrollBar scrollCarrito = new JScrollBar();
-		panelCarrito.add(scrollCarrito);
+		JList<Cancion> listaCarrito = new JList();
+		DefaultListModel modeloCarrito = new DefaultListModel();
+		panelCarrito.add(listaCarrito);
+		ArrayList<Cancion> listaCanciones = BaseDeDatos.obtenerCanciones();
+		for(Cancion c: listaCanciones) {
+			modeloCarrito.addElement(c);
+		}
+		listaCarrito.setModel(modeloCarrito);
+		
+		
+		
 		
 		setSize(1900, 800);
 		
@@ -164,11 +175,6 @@ public class VentanaMain extends JFrame {
 		}
 	});
 	
-	//Cargamos las canciones
-	ArrayList<Cancion> listaCanciones = BaseDeDatos.obtenerCanciones();
-	for(Cancion c: listaCanciones) {
-		//scrollCanciones.add(c);
-	}
 	
 	
 	
