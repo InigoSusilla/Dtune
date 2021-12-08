@@ -14,6 +14,7 @@ import java.awt.event.ActionListener;
 import java.sql.Connection;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.ArrayList;
 
 import javax.swing.JScrollBar;
 import javax.swing.JComboBox;
@@ -164,6 +165,11 @@ public class VentanaMain extends JFrame {
 	});
 	
 	//Cargamos las canciones
+	ArrayList<Cancion> listaCanciones = BaseDeDatos.obtenerCanciones();
+	for(Cancion c: listaCanciones) {
+		//scrollCanciones.add(c);
+	}
+	
 	
 	
 	}
