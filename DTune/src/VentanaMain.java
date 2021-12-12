@@ -82,10 +82,9 @@ public class VentanaMain extends JFrame {
 				
 				}
 			});
-			
 		
-		JScrollBar scrollCanciones = new JScrollBar();
-		panelMusica.add(scrollCanciones, BorderLayout.CENTER);
+		JList listCanciones = new JList();
+		panelMusica.add(listCanciones, BorderLayout.WEST);
 		
 		JPanel panelMusicaBotones = new JPanel();
 		panelMusica.add(panelMusicaBotones, BorderLayout.SOUTH);
