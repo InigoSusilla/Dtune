@@ -1,4 +1,5 @@
 
+import java.awt.Container;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.ResultSet;
@@ -248,21 +249,141 @@ public class BaseDeDatos {
 		
 	
 	
-	public static boolean esAdministrador(String usuario) throws SQLException {
+	public static boolean esAdministrador(String usuario){
 		Connection con = BaseDeDatos.initBD();
 		Statement stt = null;
 		String sentSQL = "select esAdministrador from Usuarios where nombre = '"+ usuario+"'";
-		stt = con.createStatement();
-		ResultSet rs = stt.executeQuery(sentSQL);
-		if(rs.next()){
-			boolean esAdmin = rs.getBoolean("esAdministrador");
-			if(esAdmin) {
-				return true;
-			}	
-	}
-		return false;
+		boolean esAdmin = false;
+		try {
+			stt = con.createStatement();
+			ResultSet rs = stt.executeQuery(sentSQL);
+			if(rs.next()){
+				esAdmin = rs.getBoolean("esAdministrador");
+					
+			}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		return esAdmin;
 		
 	}
 	
+	public static ArrayList<Cancion> filtrarCancionPorGenero(String genero) {
+		Connection con = BaseDeDatos.initBD();
+		
+		Statement stt = null;
+		if(genero.equals("Todos los g�neros")) {
+			return obtenerCanciones();
+		}else {
+			ArrayList<Cancion> listaCanciones= new ArrayList<>();
+			String sentSQL = "select * from canciones where genero='" + genero+"'";
+		
+		
+		try {
+			stt = con.createStatement();
+			stt.executeUpdate(sentSQL);
+			ResultSet rs = stt.executeQuery(sentSQL);
+			while(rs.next()){
+				String nomb = rs.getString("nombre"); 
+				String aut = rs.getString("autor"); 
+				Double prec = rs.getDouble("precio");
+				boolean flan = rs.getBoolean("esVinillo");
+				long milisLanz = rs.getLong("fechaLanzamiento");
+				String gen = rs.getString("genero");
+				String rut = rs.getString("ruta");
+				Double dura = rs.getDouble("duracion");
+				
+				SimpleDateFormat sdf = new SimpleDateFormat( "dd/MM/yyyy" );
+				Date fechaLanz = new Date(milisLanz);
+				
+				Cancion pa = new Cancion(nomb, aut, prec , flan, fechaLanz, gen, rut, dura);
+				
+				listaCanciones.add(pa);
+					
+				
+				
+			}
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			finally {
+				BaseDeDatos.closeBD(con, stt);
+			}
+		return listaCanciones; 	
+		
+	}
+		}
+	
+	public static ArrayList<String> obtenerGeneros(){
+		ArrayList<String> aGeneros = new ArrayList<>();
+		String sent = "select distinct(genero) from canciones";
+		Connection con = BaseDeDatos.initBD();
+		try {
+			Statement stt = con.createStatement();
+			ResultSet rs = stt.executeQuery(sent);
+			while(rs.next()) {
+				String gen = rs.getString("genero");
+				aGeneros.add(gen);
+			}
+			rs.close();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		return aGeneros;
+		
+	}
+
+	public static ArrayList<Cancion> filtrarCancionPorVinilo(String genero) {
+		Connection con = BaseDeDatos.initBD();
+		String sentSQL;
+		Statement stt = null;
+		ArrayList<Cancion> listaCanciones= new ArrayList<>();
+		
+		if(genero.equals("Todos los g�neros")) {
+			sentSQL = "select * from canciones where esVinillo = 1";
+		}else {
+			sentSQL = "select * from canciones where genero='" + genero+"' and esVinillo=1";
+		}
+		
+		try {
+			stt = con.createStatement();
+			stt.executeUpdate(sentSQL);
+			ResultSet rs = stt.executeQuery(sentSQL);
+			while(rs.next()){
+				String nomb = rs.getString("nombre"); 
+				String aut = rs.getString("autor"); 
+				Double prec = rs.getDouble("precio");
+				boolean flan = rs.getBoolean("esVinillo");
+				long milisLanz = rs.getLong("fechaLanzamiento");
+				String gen = rs.getString("genero");
+				String rut = rs.getString("ruta");
+				Double dura = rs.getDouble("duracion");
+				
+				SimpleDateFormat sdf = new SimpleDateFormat( "dd/MM/yyyy" );
+				Date fechaLanz = new Date(milisLanz);
+				
+				Cancion pa = new Cancion(nomb, aut, prec , flan, fechaLanz, gen, rut, dura);
+				
+				listaCanciones.add(pa);
+					
+				
+				
+			}
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			finally {
+				BaseDeDatos.closeBD(con, stt);
+			}
+		return listaCanciones; 	
+		
+	
+		}
 	
 }

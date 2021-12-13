@@ -7,9 +7,16 @@ import java.awt.EventQueue;
 import javax.swing.JScrollPane;
 import javax.swing.JRadioButton;
 import javax.swing.SwingConstants;
+import javax.swing.UIManager;
+import javax.swing.WindowConstants;
+
+import com.formdev.flatlaf.FlatLightLaf;
+
 import javax.swing.ButtonGroup;
 import javax.swing.DefaultListModel;
 import javax.swing.JButton;
+import javax.swing.JCheckBox;
+
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -21,11 +28,18 @@ import java.util.ArrayList;
 import javax.swing.JScrollBar;
 import javax.swing.JComboBox;
 
-public class VentanaMain extends JFrame {
+public class VentanaMain extends JFrame{
+	private static JComboBox comboBoxGenero;
+	private DefaultListModel modeloListaCanciones;
+	private JList<Cancion> listCanciones;
+	public static JButton btnAnadirCancion;
+	
 	public VentanaMain() {
+		FlatLightLaf.setup();
 		setVisible(true);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		
+		this.setExtendedState(MAXIMIZED_BOTH);
+	
 		JPanel PanelPreview = new JPanel();
 		getContentPane().add(PanelPreview, BorderLayout.SOUTH);
 		
@@ -60,18 +74,18 @@ public class VentanaMain extends JFrame {
 		panelCentro.add(panelMusica);
 		panelMusica.setLayout(new BorderLayout(0, 0));
 		
-		JComboBox comboBoxGenero = new JComboBox();
+		comboBoxGenero = new JComboBox();
 		panelMusica.add(comboBoxGenero, BorderLayout.NORTH);
 		
-		comboBoxGenero.addItem("Todos los gï¿½neros");   
+		/*comboBoxGenero.addItem("Todos los gï¿½neros");   
 		//Hay que aï¿½ador aqui todos los gï¿½neros de las canciones
 		comboBoxGenero.addItem("Rock");
 		comboBoxGenero.addItem("Pop");
 		comboBoxGenero.addItem("Reguetton");
 		comboBoxGenero.addItem("Techno");
+		*/
 		
-		
-		
+		cargarGenerosDeLaBBDD();
 		//Ordenar las canciones por el gï¿½nero seleccionado
 		comboBoxGenero.addActionListener(new ActionListener() {
 			
@@ -79,29 +93,38 @@ public class VentanaMain extends JFrame {
 			public void actionPerformed(ActionEvent e) {
 				String genero = (String) comboBoxGenero.getSelectedItem();
 				System.out.println(genero);
-				
+				if(genero!=null) {
+					ArrayList<Cancion> ac = BaseDeDatos.filtrarCancionPorGenero(genero);
+					modeloListaCanciones.removeAllElements();
+					for(Cancion c : ac) {
+						modeloListaCanciones.addElement(c);
+					}
 				}
-			});
+			}
+		});
 		
-		JList listCanciones = new JList();
-		panelMusica.add(listCanciones, BorderLayout.WEST);
+		listCanciones = new JList();
+		modeloListaCanciones = new DefaultListModel();
+		ArrayList<Cancion> ALCanciones = BaseDeDatos.obtenerCanciones();
+		for(Cancion c: ALCanciones) {
+			modeloListaCanciones.addElement(c);
+		}
+		listCanciones.setModel(modeloListaCanciones);
+		JScrollPane scrollListaCanciones = new JScrollPane(listCanciones);
+		scrollListaCanciones.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED);
+		scrollListaCanciones.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_ALWAYS);
+		panelMusica.add(scrollListaCanciones, BorderLayout.CENTER);
 		
 		JPanel panelMusicaBotones = new JPanel();
 		panelMusica.add(panelMusicaBotones, BorderLayout.SOUTH);
 		
-		JRadioButton rdbtnCD = new JRadioButton("CD");
-		panelMusicaBotones.add(rdbtnCD);
-		rdbtnCD.setSelected(true);
 		
-		JRadioButton rdbtnVinilo = new JRadioButton("Vinilo");
-		panelMusicaBotones.add(rdbtnVinilo);
-		
-		ButtonGroup bg = new ButtonGroup(); //QUE NO SE SELECCIONEN LOS DOS BOTNES AL MISMO TIMEPO
-		bg.add(rdbtnVinilo);
-		bg.add(rdbtnCD);
-		
-		JButton btnAnadirCancion = new JButton("Cancion");
+		JCheckBox cbVinilo = new JCheckBox("Vinilo");
+		panelMusicaBotones.add(cbVinilo);
+			
+		btnAnadirCancion = new JButton("Cancion");
 		panelMusicaBotones.add(btnAnadirCancion);
+		btnAnadirCancion.setVisible(false);
 		
 		btnAnadirCancion.addActionListener(new ActionListener() {
 			
@@ -109,6 +132,7 @@ public class VentanaMain extends JFrame {
 			public void actionPerformed(ActionEvent e) {
 				new VentanaCrearCancion();
 				System.out.println("Ventana crear cancion");
+				//cargarGenerosDeLaBBDD();
 				
 			}
 		});
@@ -120,8 +144,10 @@ public class VentanaMain extends JFrame {
 		JPanel panelAnadirCarrito = new JPanel();
 		panelBotones.add(panelAnadirCarrito);
 		
-		JButton btnAnadirCarrito = new JButton("AÃ±adir Carrito");
+		JButton btnAnadirCarrito = new JButton("Añadir Carrito");
 		panelAnadirCarrito.add(btnAnadirCarrito);
+		
+		
 		
 		JPanel panelRetirar = new JPanel();
 		panelBotones.add(panelRetirar);
@@ -151,10 +177,6 @@ public class VentanaMain extends JFrame {
 		JList<Cancion> listaCarrito = new JList();
 		DefaultListModel modeloCarrito = new DefaultListModel();
 		panelCarrito.add(listaCarrito);
-		ArrayList<Cancion> listaCanciones = BaseDeDatos.obtenerCanciones();
-		for(Cancion c: listaCanciones) {
-			modeloCarrito.addElement(c);
-		}
 		listaCarrito.setModel(modeloCarrito);
 		
 		
@@ -162,6 +184,17 @@ public class VentanaMain extends JFrame {
 		
 		setSize(1900, 800);
 		
+		
+		btnAnadirCarrito.addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				Cancion a = listCanciones.getSelectedValue();
+				System.out.println(a);
+				modeloCarrito.addElement(a);
+				
+			}
+		});
 		
 	
 	btnIniciarSesion.addActionListener(new ActionListener() {
@@ -174,9 +207,73 @@ public class VentanaMain extends JFrame {
 		}
 	});
 	
+	btnQuitarCarrito.addActionListener(new ActionListener() {
+		
+		@Override
+		public void actionPerformed(ActionEvent e) {
+			Cancion a = listaCarrito.getSelectedValue();
+			modeloCarrito.removeElement(a);
+			
+		}
+	});
+	
+	btnPreviewCancion.addActionListener(new ActionListener() {
+		
+		@Override
+		public void actionPerformed(ActionEvent e) {
+			Cancion a = listCanciones.getSelectedValue();
+			String ruta = a.getRuta();
+			Reproductor.ReproducirCancion(ruta);
+		}
+	});
+	
+	cbVinilo.addActionListener(new ActionListener() {
+
+		@Override
+		public void actionPerformed(ActionEvent e) {
+			modeloListaCanciones.removeAllElements();
+			ArrayList<Cancion> ac;
+			if(cbVinilo.isSelected()) {
+				ac = BaseDeDatos.filtrarCancionPorVinilo((String)comboBoxGenero.getSelectedItem());
+			}else {
+				ac = BaseDeDatos.filtrarCancionPorGenero((String)comboBoxGenero.getSelectedItem());
+			}
+			for(Cancion c: ac) {
+				modeloListaCanciones.addElement(c);
+			}
+			
+		}
+		
+	});
+	/*
+	try
+	{
+	   //Correcion hecha por Chuster Boy ;)
+	   UIManager.setLookAndFeel(new FlatLightLaf());
+
+	}
+	catch (Exception e)
+	{
+	   e.printStackTrace();
+	}
+	
+	*/
 	
 	
 	
+	}
+	//Cargar de manera recursiva los generos en la combobox
+	private static void cargarRec(ArrayList<String> ag, int i) {
+		if(i<ag.size()) {
+			comboBoxGenero.addItem(ag.get(i));
+			cargarRec(ag, i+1);
+		}
+	}
+	public static void cargarGenerosDeLaBBDD() {
+		ArrayList<String> ageneros = BaseDeDatos.obtenerGeneros();
+		comboBoxGenero.removeAllItems();
+		comboBoxGenero.addItem("Todos los gï¿½neros");
+		cargarRec(ageneros, 0);
 	}
 	
 	public static void main(String[] args) throws SQLException {

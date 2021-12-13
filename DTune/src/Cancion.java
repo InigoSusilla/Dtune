@@ -23,6 +23,7 @@ public class Cancion {
 	public String genero;
 	public String ruta;
 	public double duracion;
+	private static SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
 	
 	
 	public String getNombre() {
@@ -78,9 +79,10 @@ public class Cancion {
 	}
 	@Override
 	public String toString() {
-		return "Cancion [nombre=" + nombre + ", autor=" + autor + ", precio=" + precio + ", esVinillo=" + esVinillo
+		return nombre +" "+ autor + " "+ sdf.format(getFechaLanzamiento()) + " "+ duracion + " "+ precio; 
+		/*return "Cancion [nombre=" + nombre + ", autor=" + autor + ", precio=" + precio + ", esVinillo=" + esVinillo
 				+ ", fechaLanzamiento=" + fechaLanzamiento + ", genero=" + genero + ", ruta=" + ruta + ", duracion="
-				+ duracion + "]";
+				+ duracion + "]";*/
 	}
 	public Cancion(String nombre, String autor, double precio, boolean esVinillo, Date fechaLanzamiento, String genero,
 			String ruta, double duracion) {

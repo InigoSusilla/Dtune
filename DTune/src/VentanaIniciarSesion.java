@@ -80,18 +80,21 @@ public class VentanaIniciarSesion extends JFrame {
 				
 				String cont = infoContrasena.getText();
 				String usu = infoUsuario.getText();
-			if(usu.equals("") || cont.equals("") ) {
-				if (BaseDeDatos.comprobacionUsuario(usu, cont) == 1) {
-					JOptionPane.showMessageDialog(null, "Usuario y contraseña correctos");
-					new VentanaMain();
-				}else if(BaseDeDatos.comprobacionUsuario(usu, cont ) == 2) {
-					JOptionPane.showMessageDialog(null,"Contraseña incorrecta");
-				}else if(BaseDeDatos.comprobacionUsuario(usu, cont ) == 3) {
-					JOptionPane.showMessageDialog(null,"Usuario no encontrado");
+				if(usu.equals("") || cont.equals("") ) {
+					JOptionPane.showMessageDialog(null,"El nombre y/o la contraseña esta vacio");
+				}else {
+					int resul = BaseDeDatos.comprobacionUsuario(usu, cont);
+					if (resul == 1) {
+						JOptionPane.showMessageDialog(null, "Usuario y contraseña correctos");
+						if(BaseDeDatos.esAdministrador(usu)) {
+							VentanaMain.btnAnadirCancion.setVisible(true);
+						}
+					}else if(resul == 2) {
+						JOptionPane.showMessageDialog(null,"Contraseña incorrecta");
+					}else if(resul == 3) {
+						JOptionPane.showMessageDialog(null,"Usuario no encontrado");
+					}
 				}
-			}else {
-				JOptionPane.showMessageDialog(null,"El nombre y/o la contraseña esta vacio");
-			}
 			
 			
 			

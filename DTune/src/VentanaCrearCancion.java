@@ -90,7 +90,9 @@ public class VentanaCrearCancion extends JFrame{
 				String ruta = "demosCanciones/Demo"+ rutaRAW + ".mp3";
 				Cancion c = new Cancion(nombre, autor, precio, esVinillo, fecha, genero, ruta, duracion);
 				BaseDeDatos.insertarCancion(c);
+				
 				JOptionPane.showMessageDialog(null, "Creada con exito");
+				VentanaMain.cargarGenerosDeLaBBDD();
 			} catch (ParseException e1) {
 				// TODO Auto-generated catch block
 				e1.printStackTrace();
