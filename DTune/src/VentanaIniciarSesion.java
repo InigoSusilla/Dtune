@@ -94,11 +94,7 @@ public class VentanaIniciarSesion extends JFrame {
 					}else if(resul == 3) {
 						JOptionPane.showMessageDialog(null,"Usuario no encontrado");
 					}
-				}
-			
-			
-			
-			
+				}	
 		}
 		});
 		

@@ -67,7 +67,7 @@ public class VentanaPrintCarrito extends JFrame {
 		//Eventos
 		cargarCarritoEnTextArea();
 		
-		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		setBounds(100, 100, 450, 300);
 		setVisible(true);
 		contentPane = new JPanel();
@@ -79,8 +79,6 @@ public class VentanaPrintCarrito extends JFrame {
 		contentPane.add(PanelPagar, BorderLayout.WEST);
 		
 		JButton btnPagar = new JButton("Pagar");
-		btnPagar.setForeground(Color.GREEN);
-		btnPagar.setBackground(Color.RED);
 		taResumen.setText("");
 		PanelPagar.add(btnPagar);
 		generarFicheroFactura();
@@ -89,14 +87,12 @@ public class VentanaPrintCarrito extends JFrame {
 		contentPane.add(PanelVolver, BorderLayout.EAST);
 		
 		JButton btnVolver = new JButton("Volver");
-		btnVolver.setForeground(Color.GREEN);
 		PanelVolver.add(btnVolver);
 		
 		JPanel PanelCancelar = new JPanel();
 		contentPane.add(PanelCancelar, BorderLayout.CENTER);
 		
 		JButton btnCancelar = new JButton("Cancelar");
-		btnCancelar.setForeground(Color.GREEN);
 		PanelCancelar.add(btnCancelar);
 		
 		btnPagar.addActionListener(new ActionListener() {
@@ -114,10 +110,17 @@ public class VentanaPrintCarrito extends JFrame {
 			
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				new VentanaMain();
-				System.out.println("aaa");
-				
-			}
+				dispose();
+				}
+		});
+		
+		btnCancelar.addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				VentanaMain.vaciarCarrito();
+				dispose();
+				}
 		});
 		
 		setSize(300, 100);

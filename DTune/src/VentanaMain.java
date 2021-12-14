@@ -32,6 +32,8 @@ public class VentanaMain extends JFrame{
 	private static JComboBox comboBoxGenero;
 	private DefaultListModel modeloListaCanciones;
 	private JList<Cancion> listCanciones;
+	private JList<Cancion> listaCarrito;
+	private static DefaultListModel modeloCarrito;
 	public static JButton btnAnadirCancion;
 	
 	public VentanaMain() {
@@ -174,8 +176,8 @@ public class VentanaMain extends JFrame{
 		JPanel panelCarrito = new JPanel();
 		panelCentro.add(panelCarrito);
 		
-		JList<Cancion> listaCarrito = new JList();
-		DefaultListModel modeloCarrito = new DefaultListModel();
+		listaCarrito = new JList();
+		modeloCarrito = new DefaultListModel();
 		panelCarrito.add(listaCarrito);
 		listaCarrito.setModel(modeloCarrito);
 		
@@ -248,7 +250,6 @@ public class VentanaMain extends JFrame{
 	/*
 	try
 	{
-	   //Correcion hecha por Chuster Boy ;)
 	   UIManager.setLookAndFeel(new FlatLightLaf());
 
 	}
@@ -274,6 +275,10 @@ public class VentanaMain extends JFrame{
 		comboBoxGenero.removeAllItems();
 		comboBoxGenero.addItem("Todos los g�neros");
 		cargarRec(ageneros, 0);
+	}
+	
+	public static void vaciarCarrito() {
+		modeloCarrito.removeAllElements();
 	}
 	
 	public static void main(String[] args) throws SQLException {
