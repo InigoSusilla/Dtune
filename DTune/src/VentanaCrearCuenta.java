@@ -24,28 +24,6 @@ public class VentanaCrearCuenta extends JFrame  {
 
 	public String Usuario;
 	public String Contrasena;
-	
-
-	@Override
-	public String toString() {
-		return "VentanaCrearCuenta [Usuario=" + Usuario + ", Contrasena=" + Contrasena + "]";
-	}
-
-	public String getUsuario() {
-		return Usuario;
-	}
-
-	public void setUsuario(String usuario) {
-		this.Usuario = usuario;
-	}
-
-	public String getContrasena() {
-		return Contrasena;
-	}
-
-	public void setContrasena(String contrasena) {
-		this.Contrasena = contrasena;
-	}
 
 	private JPanel contentPane;
 	private JTextField txtUsuario;
@@ -60,7 +38,7 @@ public class VentanaCrearCuenta extends JFrame  {
 	 * Create the frame.
 	 */
 	public VentanaCrearCuenta() {
-		
+		setLocationRelativeTo(null);
 		setTitle("DTune Crear cuenta");
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		setBounds(100, 100, 450, 300);

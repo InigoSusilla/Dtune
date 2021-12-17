@@ -58,6 +58,7 @@ public class VentanaIniciarSesion extends JFrame {
 	 * Create the frame.
 	 */
 	public VentanaIniciarSesion() {
+		setLocationRelativeTo(null);
 		setTitle("DTune Iniciar Sesi\u00F3n");
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		setBounds(100, 100, 450, 300);

@@ -23,35 +23,6 @@ public class VentanaPrintCarrito extends JFrame {
 	public String volver;
 	public String cancelar;
 
-	@Override
-	public String toString() {
-		return "VentanaPrintCarrito [pagar=" + pagar + ", volver=" + volver + ", cancelar=" + cancelar + "]";
-	}
-
-	public String getPagar() {
-		return pagar;
-	}
-
-	public void setPagar(String pagar) {
-		this.pagar = pagar;
-	}
-
-	public String getVolver() {
-		return volver;
-	}
-
-	public void setVolver(String volver) {
-		this.volver = volver;
-	}
-
-	public String getCancelar() {
-		return cancelar;
-	}
-
-	public void setCancelar(String cancelar) {
-		this.cancelar = cancelar;
-	}
-
 	private JPanel contentPane;
 
 	
@@ -59,7 +30,7 @@ public class VentanaPrintCarrito extends JFrame {
 	 * Create the frame.
 	 */
 	public VentanaPrintCarrito() {
-		
+		setLocationRelativeTo(null);
 		taResumen = new JTextArea();
 		scrollAreaResumen = new JScrollPane(taResumen);
 		
@@ -101,6 +72,7 @@ public class VentanaPrintCarrito extends JFrame {
 			public void actionPerformed(ActionEvent e) {
 				new VentanaImprimir();
 				System.out.println("aaa");
+				dispose();
 				
 			}
 			

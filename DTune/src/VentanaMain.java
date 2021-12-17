@@ -38,6 +38,7 @@ public class VentanaMain extends JFrame{
 	
 	public VentanaMain() {
 		FlatLightLaf.setup();
+		setLocationRelativeTo(null);
 		setVisible(true);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		this.setExtendedState(MAXIMIZED_BOTH);
@@ -48,16 +49,18 @@ public class VentanaMain extends JFrame{
 		JButton btnPreviewCancion = new JButton("Reproducir Cancion");
 		PanelPreview.add(btnPreviewCancion);
 		
+		Thread hiloReproductor = new Thread( new Runnable() {
+			@Override
+			public void run() {
+				// TODO Auto-generated method stub
+				Cancion a = listCanciones.getSelectedValue();
+				String ruta = a.getRuta();		
+				Reproductor.ReproducirCancion(ruta);
+			}
+		});
+		
 		btnPreviewCancion.addActionListener(new ActionListener() {
-			Thread hiloReproductor = new Thread( new Runnable() {
-				@Override
-				public void run() {
-					// TODO Auto-generated method stub
-					Cancion a = listCanciones.getSelectedValue();
-					String ruta = a.getRuta();		
-					Reproductor.ReproducirCancion(ruta);
-				}
-			});
+			
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				hiloReproductor.start();

@@ -23,6 +23,7 @@ public class VentanaCrearCancion extends JFrame{
 	private JTextField textFieldDuracion;
 	private JLabel lblNewLabel;
 	public VentanaCrearCancion() {
+		setLocationRelativeTo(null);
 		setVisible(true);
 		setSize(700,300);
 		
