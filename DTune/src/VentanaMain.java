@@ -53,7 +53,9 @@ public class VentanaMain extends JFrame{
 				@Override
 				public void run() {
 					// TODO Auto-generated method stub
-					Reproductor.ReproducirCancion("demosCanciones/DemoThunder.mp3");
+					Cancion a = listCanciones.getSelectedValue();
+					String ruta = a.getRuta();		
+					Reproductor.ReproducirCancion(ruta);
 				}
 			});
 			@Override
@@ -79,13 +81,6 @@ public class VentanaMain extends JFrame{
 		comboBoxGenero = new JComboBox();
 		panelMusica.add(comboBoxGenero, BorderLayout.NORTH);
 		
-		/*comboBoxGenero.addItem("Todos los g�neros");   
-		//Hay que a�ador aqui todos los g�neros de las canciones
-		comboBoxGenero.addItem("Rock");
-		comboBoxGenero.addItem("Pop");
-		comboBoxGenero.addItem("Reguetton");
-		comboBoxGenero.addItem("Techno");
-		*/
 		
 		cargarGenerosDeLaBBDD();
 		//Ordenar las canciones por el g�nero seleccionado
@@ -216,16 +211,6 @@ public class VentanaMain extends JFrame{
 			Cancion a = listaCarrito.getSelectedValue();
 			modeloCarrito.removeElement(a);
 			
-		}
-	});
-	
-	btnPreviewCancion.addActionListener(new ActionListener() {
-		
-		@Override
-		public void actionPerformed(ActionEvent e) {
-			Cancion a = listCanciones.getSelectedValue();
-			String ruta = a.getRuta();
-			Reproductor.ReproducirCancion(ruta);
 		}
 	});
 	
