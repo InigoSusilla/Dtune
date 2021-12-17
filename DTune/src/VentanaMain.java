@@ -49,7 +49,7 @@ public class VentanaMain extends JFrame{
 		PanelPreview.add(btnPreviewCancion);
 		
 		btnPreviewCancion.addActionListener(new ActionListener() {
-			Thread hilo = new Thread( new Runnable() {
+			Thread hiloReproductor = new Thread( new Runnable() {
 				@Override
 				public void run() {
 					// TODO Auto-generated method stub
@@ -60,7 +60,7 @@ public class VentanaMain extends JFrame{
 			});
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				hilo.start();
+				hiloReproductor.start();
 			}
 		});
 		
