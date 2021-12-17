@@ -6,7 +6,7 @@ import java.util.HashMap;
 
 
 
-public class Usuario {
+public abstract class Usuario {
 	public static final long serialVersionUID = 1L;    //Para poder escribirlo o leerlo del fichero
 	
 	private static String nombre;

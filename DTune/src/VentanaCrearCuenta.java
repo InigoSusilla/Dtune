@@ -122,7 +122,12 @@ public class VentanaCrearCuenta extends JFrame  {
 							
 							if(!nom.equals("") && !c.equals("") ) {//FUNCIONA
 								if(BaseDeDatos.comprobarRepeticionUsuario(nom) == 1) {
-									Usuario u = new Usuario(nom, c);
+									Usuario u ;
+									if(c.charAt(0) == 'a')
+										u = new Administrador(nom, c);
+									else
+										u = new Cliente(nom,c);
+									//Usuario u = new UsuarioCliente(nom, c);
 									BaseDeDatos.insertarUsuario(u);
 									BaseDeDatos.mostrarUsuario(nom);
 									JOptionPane.showMessageDialog(null, "Te has registrado correctamente");

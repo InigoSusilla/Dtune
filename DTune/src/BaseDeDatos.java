@@ -71,7 +71,11 @@ public class BaseDeDatos {
 	public static void insertarUsuario(Usuario u) {
 		Connection con = BaseDeDatos.initBD();
 		Statement stt = null;
-		String sentSQL = "INSERT INTO Usuarios VALUES('"+u.getNombre()+"','"+u.getContrasenia()+"')";
+		String sentSQL ;
+		if(u instanceof Administrador)
+			sentSQL = "INSERT INTO Usuarios VALUES('"+u.getNombre()+"','"+u.getContrasenia()+"', true)";
+		else
+			sentSQL = "INSERT INTO Usuarios VALUES('"+u.getNombre()+"','"+u.getContrasenia()+"', false)";
 		try {
 			stt = con.createStatement();
 			stt.executeUpdate(sentSQL);
@@ -109,7 +113,11 @@ public class BaseDeDatos {
 			ResultSet rs = st.executeQuery(query);
 			if(rs.next()) {
 				String c = rs.getString("contrasenia");
-				u = new Usuario(nombre, c);
+				boolean esAdmin = rs.getBoolean("esAdmin");
+				if(esAdmin)
+					u = new Administrador(nombre, c);
+				else
+					u = new Cliente(nombre, c);
 			}
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block

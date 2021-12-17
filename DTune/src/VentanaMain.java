@@ -246,20 +246,7 @@ public class VentanaMain extends JFrame{
 			
 		}
 		
-	});
-	/*
-	try
-	{
-	   UIManager.setLookAndFeel(new FlatLightLaf());
-
-	}
-	catch (Exception e)
-	{
-	   e.printStackTrace();
-	}
-	
-	*/
-	
+	});	
 	
 	
 	}
