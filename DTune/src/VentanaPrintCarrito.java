@@ -24,7 +24,6 @@ public class VentanaPrintCarrito extends JFrame {
 	public String cancelar;
 
 	private JPanel contentPane;
-	SimpleDateFormat sdf = new SimpleDateFormat("dd-MM-yyyy");
 	
 	/**
 	 * Create the frame.
@@ -35,9 +34,6 @@ public class VentanaPrintCarrito extends JFrame {
 		scrollAreaResumen = new JScrollPane(taResumen);
 		
 		getContentPane().add(scrollAreaResumen, BorderLayout.CENTER);
-		//Eventos
-		cargarCarritoEnTextArea();
-		generarFicheroFactura();
 		
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		setBounds(100, 100, 450, 300);
@@ -99,41 +95,6 @@ public class VentanaPrintCarrito extends JFrame {
 		setSize(300, 100);
 		
 	}
-	private void cargarCarritoEnTextArea() {
 
-		Date d = new Date(System.currentTimeMillis());
-		String texto = ""
-				+ "Factura de la compra del dia: " + sdf.format(d) + "\n";
-		double total = 0;
-		ArrayList<Cancion> listaCanciones = VentanaMain.obtenerCarrito();
-		for(Cancion c: listaCanciones) {
-			texto = texto + "	" + c + "\n";
-			total = total + c.getPrecio();
-		}
-		texto = texto + "TOTAL: "+total+" €";
-		taResumen.setText(texto);
-	}
-
-
-	private void generarFicheroFactura() {
-		Date d = new Date(System.currentTimeMillis());
-		
-		Usuario a = VentanaIniciarSesion.getUsuario();
-		String nomfich = a.getNombre() +" "+sdf.format(d) +".txt";
-		PrintWriter pw = null;
-	
-		try {
-			pw = new PrintWriter(nomfich);
-			pw.println(taResumen.getText());
-		} catch (FileNotFoundException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} finally {
-			if(pw!=null) {
-				pw.flush();
-				pw.close();
-		}
-	}
-}
 
 }

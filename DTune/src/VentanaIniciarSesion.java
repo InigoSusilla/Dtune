@@ -15,16 +15,16 @@ import javax.swing.Action;
 import javax.swing.BoxLayout;
 import javax.swing.JScrollPane;
 import javax.swing.JButton;
+import javax.swing.JLabel;
+import javax.swing.JPasswordField;
 
 public class VentanaIniciarSesion extends JFrame {
 
 
 	private JPanel contentPane;
-	private JTextField txtUsuario;
 	private JTextField infoUsuario;
-	private JTextField txtContrasea;
-	private JTextField infoContrasena;
 	private static Usuario user;
+	private JPasswordField infoContrasena;
 
 
 	/**
@@ -60,6 +60,10 @@ public class VentanaIniciarSesion extends JFrame {
 					int resul = BaseDeDatos.comprobacionUsuario(usu, cont);
 					if (resul == 1) {
 						JOptionPane.showMessageDialog(null, "Usuario y contraseña correctos");
+						
+						
+						
+						
 						/*if(BaseDeDatos.esAdministrador(usu) ) {
 							if( ((Administrador)usu) )
 								VentanaMain.btnAnadirCancion.setVisible(true);
@@ -87,11 +91,8 @@ public class VentanaIniciarSesion extends JFrame {
 		JPanel panelBotonesUsuarios = new JPanel();
 		panelBotones.add(panelBotonesUsuarios, BorderLayout.NORTH);
 		
-		txtUsuario = new JTextField();
-		txtUsuario.setEditable(false);
-		txtUsuario.setText("Usuario");
-		panelBotonesUsuarios.add(txtUsuario);
-		txtUsuario.setColumns(10);
+		JLabel lblUsuario = new JLabel("Usuario");
+		panelBotonesUsuarios.add(lblUsuario);
 		
 		infoUsuario = new JTextField();
 		panelBotonesUsuarios.add(infoUsuario);
@@ -100,15 +101,11 @@ public class VentanaIniciarSesion extends JFrame {
 		JPanel panelBotonesContrasena = new JPanel();
 		panelBotones.add(panelBotonesContrasena, BorderLayout.CENTER);
 		
-		txtContrasea = new JTextField();
-		txtContrasea.setEditable(false);
-		txtContrasea.setText("Contrase\u00F1a");
-		panelBotonesContrasena.add(txtContrasea);
-		txtContrasea.setColumns(10);
+		JLabel lblContrasena = new JLabel("Contrase\u00F1a");
+		panelBotonesContrasena.add(lblContrasena);
 		
-		infoContrasena = new JTextField();
+		infoContrasena = new JPasswordField();
 		panelBotonesContrasena.add(infoContrasena);
-		infoContrasena.setColumns(10);
 			
 		setSize(350,150);
 		setVisible(true);

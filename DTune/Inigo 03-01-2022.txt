@@ -1,0 +1,5 @@
+Factura de la compra del dia: 03-01-2022
+	ThunderStruck AC/DC 22/10/1990 4.22 15.99
+	WonderWall Oasis 12/06/1970 3.22 15.77
+	La Resaka Supermerka2 12/10/1990 12.4 15.99
+TOTAL: 47.75 €
