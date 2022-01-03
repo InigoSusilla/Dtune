@@ -18,40 +18,13 @@ import javax.swing.JButton;
 
 public class VentanaIniciarSesion extends JFrame {
 
-	public String usuario;
-	public String contrasena;
-	
-	@Override
-	public String toString() {
-		return "VentanaIniciarSesion [usuario=" + usuario + ", contrasena=" + contrasena + "]";
-	}
-
-
-	public String getUsuario() {
-		return usuario;
-	}
-
-
-	public void setUsuario(String usuario) {
-		this.usuario = usuario;
-	}
-
-
-	public String getContrasena() {
-		return contrasena;
-	}
-
-
-	public void setContrasena(String contrasena) {
-		this.contrasena = contrasena;
-	}
-
 
 	private JPanel contentPane;
 	private JTextField txtUsuario;
 	private JTextField infoUsuario;
 	private JTextField txtContrasea;
 	private JTextField infoContrasena;
+	private static Usuario user;
 
 
 	/**
@@ -87,8 +60,16 @@ public class VentanaIniciarSesion extends JFrame {
 					int resul = BaseDeDatos.comprobacionUsuario(usu, cont);
 					if (resul == 1) {
 						JOptionPane.showMessageDialog(null, "Usuario y contraseña correctos");
-						if(BaseDeDatos.esAdministrador(usu)) {
-							VentanaMain.btnAnadirCancion.setVisible(true);
+						/*if(BaseDeDatos.esAdministrador(usu) ) {
+							if( ((Administrador)usu) )
+								VentanaMain.btnAnadirCancion.setVisible(true);
+						}*/
+						Usuario u = BaseDeDatos.esAdministrador2(usu);
+						user = u;
+						if(u instanceof Administrador) {
+							if( ((Administrador)u).aniadirCancion()) {
+								VentanaMain.btnAnadirCancion.setVisible(true);
+							}
 						}
 					}else if(resul == 2) {
 						JOptionPane.showMessageDialog(null,"Contraseña incorrecta");
@@ -131,7 +112,11 @@ public class VentanaIniciarSesion extends JFrame {
 			
 		setSize(350,150);
 		setVisible(true);
-	}
+	} 	
 	
+	public static Usuario getUsuario() {
+		return user;
+		
+	}
 
 }

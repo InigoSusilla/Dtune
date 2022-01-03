@@ -256,6 +256,21 @@ public class VentanaMain extends JFrame{
 		modeloCarrito.removeAllElements();
 	}
 	
+	public static ArrayList<Cancion> obtenerCarrito() {
+		ArrayList<Cancion> canciones = new ArrayList<>();
+		if(modeloCarrito.getSize() > 0) {
+			
+		
+		for (int i = 0; i < modeloCarrito.getSize(); i++) {
+			canciones.add((Cancion)modeloCarrito.get(i));
+		}
+			System.out.println(canciones);
+		}
+		
+		return canciones;
+		
+	}
+	
 	public static void main(String[] args) throws SQLException {
 		new VentanaMain();
 		

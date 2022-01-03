@@ -24,7 +24,7 @@ public class VentanaPrintCarrito extends JFrame {
 	public String cancelar;
 
 	private JPanel contentPane;
-
+	SimpleDateFormat sdf = new SimpleDateFormat("dd-MM-yyyy");
 	
 	/**
 	 * Create the frame.
@@ -37,6 +37,7 @@ public class VentanaPrintCarrito extends JFrame {
 		getContentPane().add(scrollAreaResumen, BorderLayout.CENTER);
 		//Eventos
 		cargarCarritoEnTextArea();
+		generarFicheroFactura();
 		
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		setBounds(100, 100, 450, 300);
@@ -52,7 +53,7 @@ public class VentanaPrintCarrito extends JFrame {
 		JButton btnPagar = new JButton("Pagar");
 		taResumen.setText("");
 		PanelPagar.add(btnPagar);
-		generarFicheroFactura();
+	
 		
 		JPanel PanelVolver = new JPanel();
 		contentPane.add(PanelVolver, BorderLayout.EAST);
@@ -99,11 +100,14 @@ public class VentanaPrintCarrito extends JFrame {
 		
 	}
 	private void cargarCarritoEnTextArea() {
-		String texto = "";
+
+		Date d = new Date(System.currentTimeMillis());
+		String texto = ""
+				+ "Factura de la compra del dia: " + sdf.format(d) + "\n";
 		double total = 0;
-		ArrayList<Cancion> listaCanciones = new ArrayList<>();
+		ArrayList<Cancion> listaCanciones = VentanaMain.obtenerCarrito();
 		for(Cancion c: listaCanciones) {
-			texto = texto + c + "\n";
+			texto = texto + "	" + c + "\n";
 			total = total + c.getPrecio();
 		}
 		texto = texto + "TOTAL: "+total+" €";
@@ -112,9 +116,10 @@ public class VentanaPrintCarrito extends JFrame {
 
 
 	private void generarFicheroFactura() {
-		SimpleDateFormat sdf = new SimpleDateFormat("dd-MM-yyyy");
 		Date d = new Date(System.currentTimeMillis());
-		String nomfich = Usuario.getNombre()+" "+sdf.format(d) +".txt";
+		
+		Usuario a = VentanaIniciarSesion.getUsuario();
+		String nomfich = a.getNombre() +" "+sdf.format(d) +".txt";
 		PrintWriter pw = null;
 	
 		try {

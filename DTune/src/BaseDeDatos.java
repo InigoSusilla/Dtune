@@ -252,10 +252,35 @@ public class BaseDeDatos {
 		}
 		
 		
+	public static Usuario esAdministrador2(String usuario){
+		Connection con = BaseDeDatos.initBD();
+		Statement stt = null;
+		String sentSQL = "select * from Usuarios where nombre = '"+ usuario+"'";
+		boolean esAdmin = false;
+		Usuario u = null;
+		try {
+			stt = con.createStatement();
+			ResultSet rs = stt.executeQuery(sentSQL);
+			if(rs.next()){
+				esAdmin = rs.getBoolean("esAdministrador");
+				String nombre = rs.getString("nombre");
+				String contrasenia = rs.getString("contrasenia");
+				if (esAdmin)
+					u = new Administrador(nombre, contrasenia);
+				else
+					u = new Cliente(nombre, contrasenia);
+			}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		
+		return u;
+		
+	}
 	
 	
-	public static boolean esAdministrador(String usuario){
+	/*public static boolean esAdministrador(String usuario){
 		Connection con = BaseDeDatos.initBD();
 		Statement stt = null;
 		String sentSQL = "select esAdministrador from Usuarios where nombre = '"+ usuario+"'";
@@ -275,7 +300,7 @@ public class BaseDeDatos {
 		return esAdmin;
 		
 	}
-	
+	*/
 	public static ArrayList<Cancion> filtrarCancionPorGenero(String genero) {
 		Connection con = BaseDeDatos.initBD();
 		

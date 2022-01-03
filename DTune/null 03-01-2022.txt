@@ -1,0 +1,5 @@
+Factura de la compra del dia:03-01-2022
+		Yate Nose 12/09/1222 12.33 12.66
+		Yate Nose 12/09/1222 12.33 12.66
+		Yate Nose 12/09/1222 12.33 12.66
+TOTAL: 37.980000000000004 €
