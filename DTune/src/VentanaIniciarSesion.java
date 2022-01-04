@@ -1,10 +1,12 @@
 import java.awt.BorderLayout;
 import java.awt.EventQueue;
+import java.awt.Window;
 
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
+
 import java.awt.FlowLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -17,6 +19,7 @@ import javax.swing.JScrollPane;
 import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JPasswordField;
+
 
 public class VentanaIniciarSesion extends JFrame {
 
@@ -62,12 +65,12 @@ public class VentanaIniciarSesion extends JFrame {
 						JOptionPane.showMessageDialog(null, "Usuario y contraseña correctos");
 						
 						
+						//Borrado de ventanas a mano
+						Window [] ventanas = Window.getWindows();
+						ventanas[ventanas.length-3].dispose();
+						ventanas[ventanas.length-4].dispose();
+
 						
-						
-						/*if(BaseDeDatos.esAdministrador(usu) ) {
-							if( ((Administrador)usu) )
-								VentanaMain.btnAnadirCancion.setVisible(true);
-						}*/
 						Usuario u = BaseDeDatos.esAdministrador2(usu);
 						user = u;
 						if(u instanceof Administrador) {

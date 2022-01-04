@@ -17,8 +17,8 @@ import javax.swing.JButton;
 import java.awt.Color;
 
 public class VentanaPrintCarrito extends JFrame {
-	private JTextArea taResumen;
-	private JScrollPane scrollAreaResumen;
+
+
 	public String pagar;
 	public String volver;
 	public String cancelar;
@@ -30,10 +30,8 @@ public class VentanaPrintCarrito extends JFrame {
 	 */
 	public VentanaPrintCarrito() {
 		setLocationRelativeTo(null);
-		taResumen = new JTextArea();
-		scrollAreaResumen = new JScrollPane(taResumen);
 		
-		getContentPane().add(scrollAreaResumen, BorderLayout.CENTER);
+
 		
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		setBounds(100, 100, 450, 300);
@@ -47,7 +45,6 @@ public class VentanaPrintCarrito extends JFrame {
 		contentPane.add(PanelPagar, BorderLayout.WEST);
 		
 		JButton btnPagar = new JButton("Pagar");
-		taResumen.setText("");
 		PanelPagar.add(btnPagar);
 	
 		
@@ -68,7 +65,6 @@ public class VentanaPrintCarrito extends JFrame {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				new VentanaImprimir();
-				System.out.println("aaa");
 				dispose();
 				
 			}

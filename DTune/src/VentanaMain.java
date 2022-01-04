@@ -1,5 +1,6 @@
 import javax.swing.JFrame;
 import javax.swing.JList;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import java.awt.BorderLayout;
 import java.awt.EventQueue;
@@ -165,8 +166,12 @@ public class VentanaMain extends JFrame{
 			
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				new VentanaPrintCarrito();
-				System.out.println("Ventana print carrito");
+				if(VentanaIniciarSesion.getUsuario() == null) {
+				JOptionPane.showMessageDialog(null, "Tienes que iniciar sesion para poder comprar");
+				}else {
+					new VentanaPrintCarrito();
+				}
+
 				
 			}
 		});
@@ -201,8 +206,12 @@ public class VentanaMain extends JFrame{
 		
 		@Override
 		public void actionPerformed(ActionEvent e) {
-			new VentanaPreLogging();
-			System.out.println("Ventana pre iniciar");
+			if(VentanaIniciarSesion.getUsuario() == null) {
+				new VentanaPreLogging();
+			}else {
+				JOptionPane.showMessageDialog(null, "Ya has iniciado sesion");
+			}
+
 			
 		}
 	});

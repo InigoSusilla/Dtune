@@ -1,0 +1,6 @@
+Factura de la compra del dia: 04-01-2022 11.08.59
+	WonderWall Oasis 12/06/1970 3.22 15.77
+	Yate No se 12/12/1221 1.22 15.99
+	WonderWall Oasis 12/06/1970 3.22 15.77
+	WonderWall Oasis 12/06/1970 3.22 15.77
+TOTAL: 63.3 €
