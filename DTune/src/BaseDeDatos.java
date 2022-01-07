@@ -8,9 +8,13 @@ import java.sql.Statement;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 
 public class BaseDeDatos {
+
+	private static Logger logger = Logger.getLogger( "BaseDatos" );
 	
 	public static Connection initBD() {
 		
@@ -72,10 +76,15 @@ public class BaseDeDatos {
 		Connection con = BaseDeDatos.initBD();
 		Statement stt = null;
 		String sentSQL ;
-		if(u instanceof Administrador)
+		if(u instanceof Administrador) {
 			sentSQL = "INSERT INTO Usuarios VALUES('"+u.getNombre()+"','"+u.getContrasenia()+"', true)";
-		else
+			logger.log( Level.INFO, "Se ha creado un administrador correctamente" );
+		}else
+		{
 			sentSQL = "INSERT INTO Usuarios VALUES('"+u.getNombre()+"','"+u.getContrasenia()+"', false)";
+			logger.log( Level.INFO, "Se ha creado un cliente correctamente" );
+		}
+			
 		try {
 			stt = con.createStatement();
 			stt.executeUpdate(sentSQL);
@@ -95,6 +104,7 @@ public class BaseDeDatos {
 		try {
 			stt = con.createStatement();
 			stt.executeUpdate(sentSQL);
+			logger.log( Level.INFO, "Usuario eliminado correctamente: " + nombre );
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -136,6 +146,7 @@ public class BaseDeDatos {
 		try {
 			stt = con.createStatement();
 			stt.executeUpdate(sentSQL);
+			logger.log( Level.INFO, "Cacnion creada correctamente: " + c.getNombre() );
 			} catch (SQLException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
@@ -153,6 +164,7 @@ public class BaseDeDatos {
 		try {
 			stt = con.createStatement();
 			stt.executeUpdate(sentSQL);
+			logger.log( Level.INFO, "Cancion eliminada correctamente: " + nombre );
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -237,17 +249,12 @@ public class BaseDeDatos {
 				Date fechaLanz = new Date(milisLanz);
 				
 				Cancion pa = new Cancion(nomb, aut, prec , flan, fechaLanz, gen, rut, dura);
-				listaCanciones.add(pa);
-				
-				
-				
-				
+				listaCanciones.add(pa);	
 			}
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		
 		return listaCanciones;
 		}
 		
@@ -279,28 +286,6 @@ public class BaseDeDatos {
 		
 	}
 	
-	
-	/*public static boolean esAdministrador(String usuario){
-		Connection con = BaseDeDatos.initBD();
-		Statement stt = null;
-		String sentSQL = "select esAdministrador from Usuarios where nombre = '"+ usuario+"'";
-		boolean esAdmin = false;
-		try {
-			stt = con.createStatement();
-			ResultSet rs = stt.executeQuery(sentSQL);
-			if(rs.next()){
-				esAdmin = rs.getBoolean("esAdministrador");
-					
-			}
-		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		
-		return esAdmin;
-		
-	}
-	*/
 	public static ArrayList<Cancion> filtrarCancionPorGenero(String genero) {
 		Connection con = BaseDeDatos.initBD();
 		
@@ -310,8 +295,7 @@ public class BaseDeDatos {
 		}else {
 			ArrayList<Cancion> listaCanciones= new ArrayList<>();
 			String sentSQL = "select * from canciones where genero='" + genero+"'";
-		
-		
+
 		try {
 			stt = con.createStatement();
 			stt.executeUpdate(sentSQL);

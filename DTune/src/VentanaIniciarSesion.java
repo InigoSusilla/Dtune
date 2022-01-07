@@ -11,6 +11,8 @@ import java.awt.FlowLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.beans.PropertyChangeListener;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 import javax.swing.JTextField;
 import javax.swing.Action;
@@ -22,7 +24,9 @@ import javax.swing.JPasswordField;
 
 
 public class VentanaIniciarSesion extends JFrame {
+	
 
+	private static Logger logger = Logger.getLogger( "Inicio de sesión" );
 
 	private JPanel contentPane;
 	private JTextField infoUsuario;
@@ -62,6 +66,7 @@ public class VentanaIniciarSesion extends JFrame {
 				}else {
 					int resul = BaseDeDatos.comprobacionUsuario(usu, cont);
 					if (resul == 1) {
+						
 						JOptionPane.showMessageDialog(null, "Usuario y contraseña correctos");
 						
 						
@@ -75,6 +80,7 @@ public class VentanaIniciarSesion extends JFrame {
 						user = u;
 						if(u instanceof Administrador) {
 							if( ((Administrador)u).aniadirCancion()) {
+								logger.log( Level.INFO, "El administrador: " + u.getNombre() + " ha iniciado sesion correctamente");
 								VentanaMain.btnAnadirCancion.setVisible(true);
 							}
 						}
