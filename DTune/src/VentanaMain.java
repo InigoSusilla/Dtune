@@ -47,32 +47,10 @@ public class VentanaMain extends JFrame{
 		JPanel PanelPreview = new JPanel();
 		getContentPane().add(PanelPreview, BorderLayout.SOUTH);
 		
-		JButton btnPreviewCancion = new JButton("Reproducir Cancion");
-		PanelPreview.add(btnPreviewCancion);
 		
-		Thread hiloReproductor = new Thread( new Runnable() {
-			@Override
-			public void run() {
-				// TODO Auto-generated method stub
-				Cancion a = listCanciones.getSelectedValue();
-				String ruta = a.getRuta();		
-				Reproductor.ReproducirCancion(ruta);
-			}
-		});
-		
-		btnPreviewCancion.addActionListener(new ActionListener() {
-			
-			@Override
-			public void actionPerformed(ActionEvent e) {
-				hiloReproductor.start();
-			}
-		});
 		
 		JPanel panelIniciarSesion = new JPanel();
 		getContentPane().add(panelIniciarSesion, BorderLayout.NORTH);
-		
-		JButton btnIniciarSesion = new JButton("Iniciar Sesion");
-		panelIniciarSesion.add(btnIniciarSesion);
 		
 		JPanel panelCentro = new JPanel();
 		getContentPane().add(panelCentro, BorderLayout.CENTER);
@@ -145,16 +123,56 @@ public class VentanaMain extends JFrame{
 		JPanel panelAnadirCarrito = new JPanel();
 		panelBotones.add(panelAnadirCarrito);
 		
-		JButton btnAnadirCarrito = new JButton("Añadir Carrito");
-		panelAnadirCarrito.add(btnAnadirCarrito);
+		JButton btnIniciarSesion = new JButton("Iniciar Sesion");
+		panelAnadirCarrito.add(btnIniciarSesion);
+		
+	
+	btnIniciarSesion.addActionListener(new ActionListener() {
+		
+		@Override
+		public void actionPerformed(ActionEvent e) {
+			if(VentanaIniciarSesion.getUsuario() == null) {
+				new VentanaPreLogging();
+			}else {
+				JOptionPane.showMessageDialog(null, "Ya has iniciado sesion");
+			}
+
+			
+		}
+	});
 		
 		
 		
 		JPanel panelRetirar = new JPanel();
 		panelBotones.add(panelRetirar);
 		
+		JButton btnAnadirCarrito = new JButton("Añadir Carrito");
+		panelRetirar.add(btnAnadirCarrito);
+		
 		JButton btnQuitarCarrito = new JButton("Retirar del carrito");
 		panelRetirar.add(btnQuitarCarrito);
+		
+		btnQuitarCarrito.addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				Cancion a = listaCarrito.getSelectedValue();
+				modeloCarrito.removeElement(a);
+				
+			}
+		});
+		
+		
+		btnAnadirCarrito.addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				Cancion a = listCanciones.getSelectedValue();
+				System.out.println(a);
+				modeloCarrito.addElement(a);
+				
+			}
+		});
 		
 		JPanel panelFinalizar = new JPanel();
 		panelBotones.add(panelFinalizar);
@@ -184,47 +202,31 @@ public class VentanaMain extends JFrame{
 		panelCarrito.add(listaCarrito);
 		listaCarrito.setModel(modeloCarrito);
 		
+		JButton btnPreviewCancion = new JButton("Reproducir Cancion");
+		panelRetirar.add(btnPreviewCancion);
+		
+		Thread hiloReproductor = new Thread( new Runnable() {
+			@Override
+			public void run() {
+				// TODO Auto-generated method stub
+				Cancion a = listCanciones.getSelectedValue();
+				String ruta = a.getRuta();		
+				Reproductor.ReproducirCancion(ruta);
+			}
+		});
+		
+		btnPreviewCancion.addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				hiloReproductor.start();
+			}
+		});
+		
 		
 		
 		
 		setSize(1900, 800);
-		
-		
-		btnAnadirCarrito.addActionListener(new ActionListener() {
-			
-			@Override
-			public void actionPerformed(ActionEvent e) {
-				Cancion a = listCanciones.getSelectedValue();
-				System.out.println(a);
-				modeloCarrito.addElement(a);
-				
-			}
-		});
-		
-	
-	btnIniciarSesion.addActionListener(new ActionListener() {
-		
-		@Override
-		public void actionPerformed(ActionEvent e) {
-			if(VentanaIniciarSesion.getUsuario() == null) {
-				new VentanaPreLogging();
-			}else {
-				JOptionPane.showMessageDialog(null, "Ya has iniciado sesion");
-			}
-
-			
-		}
-	});
-	
-	btnQuitarCarrito.addActionListener(new ActionListener() {
-		
-		@Override
-		public void actionPerformed(ActionEvent e) {
-			Cancion a = listaCarrito.getSelectedValue();
-			modeloCarrito.removeElement(a);
-			
-		}
-	});
 	
 	cbVinilo.addActionListener(new ActionListener() {
 

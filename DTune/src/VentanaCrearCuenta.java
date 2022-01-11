@@ -47,7 +47,6 @@ public class VentanaCrearCuenta extends JFrame  {
 		setContentPane(contentPane);
 		contentPane.setLayout(new BorderLayout(0, 0));
 		
-		//Dtune.cargarUsuariosDeFichero();
 		
 		JPanel PanelUsuario = new JPanel();
 		contentPane.add(PanelUsuario, BorderLayout.NORTH);
@@ -82,12 +81,10 @@ public class VentanaCrearCuenta extends JFrame  {
 						public void run() {
 							lprogreso.setVisible(true);
 							progreso.setVisible(true);
-							
 							for (int i = 0; i <= 100; i++) {
 								progreso.setValue(i);
 								try {
 									Thread.sleep(100);
-									System.out.println("a");
 								}
 								catch (InterruptedException e1) {
 									e1.printStackTrace();
