@@ -11,6 +11,7 @@ public abstract class Usuario {
 	
 	private static String nombre;
 	private String contrasenia;
+	boolean esAdmin;
 	//private int num_u = 0;
 	//private ArrayList<Integer> lNumU = new ArrayList<Integer>();
 	
@@ -38,12 +39,14 @@ public abstract class Usuario {
 	public void setContrasenia(String contrasenia) {
 		this.contrasenia = contrasenia;
 	}
-	
-	/**public int getNum_u() {
-		return num_u;
-	}**/
-		//metodo toString
-		public String toString() {
-			return "Usuario [ nombre=" + nombre + ", contrasenia=" + contrasenia + /** + ", Numero de Usuario=" + num_u + **/"]";
-		}
+	public boolean isEsAdmin() {
+		return esAdmin;
+	}
+	public void setEsAdmin(boolean esAdmin) {
+		this.esAdmin = esAdmin;
+	}
+	@Override
+	public String toString() {
+		return "Usuario [contrasenia=" + contrasenia + ", esAdmin=" + esAdmin + "]";
+	}
 }
