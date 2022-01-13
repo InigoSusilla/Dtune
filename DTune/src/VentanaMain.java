@@ -36,7 +36,7 @@ public class VentanaMain extends JFrame{
 	private JList<Cancion> listaCarrito;
 	private static DefaultListModel modeloCarrito;
 	public static JButton btnAnadirCancion;
-	
+	//private Thread hiloReproductor = null;
 	public VentanaMain() {
 		FlatLightLaf.setup();
 		setLocationRelativeTo(null);
@@ -205,6 +205,7 @@ public class VentanaMain extends JFrame{
 		JButton btnPreviewCancion = new JButton("Reproducir Cancion");
 		panelRetirar.add(btnPreviewCancion);
 		
+	
 		Thread hiloReproductor = new Thread( new Runnable() {
 			@Override
 			public void run() {
@@ -212,6 +213,7 @@ public class VentanaMain extends JFrame{
 				Cancion a = listCanciones.getSelectedValue();
 				String ruta = a.getRuta();		
 				Reproductor.ReproducirCancion(ruta);
+				
 			}
 		});
 		
@@ -219,7 +221,15 @@ public class VentanaMain extends JFrame{
 			
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				hiloReproductor.start();
+				if(hiloReproductor.isAlive()) {
+					Reproductor.PararCancion();
+					Cancion a = listCanciones.getSelectedValue();
+					String ruta = a.getRuta();		
+					Reproductor.ReproducirCancion(ruta);
+				}else {
+					hiloReproductor.start();
+				}
+				
 			}
 		});
 		

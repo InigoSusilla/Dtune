@@ -19,7 +19,7 @@ import javax.swing.JTextField;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JButton;
-
+import java.awt.Color;
 public class VentanaCrearCuenta extends JFrame  {
 
 	public String Usuario;
@@ -67,21 +67,24 @@ public class VentanaCrearCuenta extends JFrame  {
 		
 		JButton btnRegistrar = new JButton("Registrar");
 		PanelRegistrar.add(btnRegistrar);
-		lprogreso = new JLabel("Creando base de datos...");
-		lprogreso.setVisible(false);
+		lprogreso = new JLabel("Validando usuario...");
+		lprogreso.setForeground(Color.RED);
 		progreso = new JProgressBar(0, 100);
 		progreso.setVisible(false);
+		lprogreso.setVisible(false);
+		PanelRegistrar.add(lprogreso);
+		PanelRegistrar.add(progreso);
 		
 		btnRegistrar.addActionListener(new ActionListener() {
 			
 			@Override
 			public void actionPerformed(ActionEvent e) {
+				lprogreso.setVisible(true);
+				progreso.setVisible(true);
 				
 					Thread hilo = new Thread(new Runnable() {
 						public void run() {
-							lprogreso.setVisible(true);
-							progreso.setVisible(true);
-							for (int i = 0; i <= 100; i++) {
+							for (int i = 0; i <= 50; i++) {
 								progreso.setValue(i);
 								try {
 									Thread.sleep(100);
@@ -90,10 +93,27 @@ public class VentanaCrearCuenta extends JFrame  {
 									e1.printStackTrace();
 								}
 							}
+							try {
+								Thread.sleep(500);
+							} catch (InterruptedException e) {
+								// TODO Auto-generated catch block
+								e.printStackTrace();
+							}
+							lprogreso.setForeground(Color.GREEN);
+							lprogreso.setText("Registrando usuario...");
+							
 							// TODO Auto-generated method stub
 							String nom = infoUsuario.getText();
 							String c = infoContrasena.getText();
-							
+							for (int i = 51; i <= 100; i++) {
+								progreso.setValue(i);
+								try {
+									Thread.sleep(100);
+								}
+								catch (InterruptedException e1) {
+									e1.printStackTrace();
+								}
+							}
 							
 							if(!nom.equals("") && !c.equals("") ) {//FUNCIONA
 								if(BaseDeDatos.comprobarRepeticionUsuario(nom) == 1) {

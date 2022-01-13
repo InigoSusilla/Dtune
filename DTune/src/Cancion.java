@@ -12,7 +12,7 @@ import javax.print.attribute.standard.Media;
 import javax.sound.sampled.AudioInputStream;
 
 
-public class Cancion {
+public class Cancion implements Comparable<Cancion>{
 	
 	
 	public String nombre;
@@ -94,5 +94,10 @@ public class Cancion {
 		this.genero = genero;
 		this.ruta = ruta;
 		this.duracion = duracion;
+	}
+	@Override
+	public int compareTo(Cancion o) {
+		// TODO Auto-generated method stub
+		return (int) (this.duracion - o.duracion);
 	}
 }
