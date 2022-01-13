@@ -7,7 +7,7 @@ import java.util.Date;
 
 import org.junit.Test;
 
-public class BDTest {
+public class BaseDeDatosTest {
 
 	@Test
 	public void testInsertarUsuario() {
@@ -30,8 +30,4 @@ public class BDTest {
 		assertTrue(canciones.size() < canciones2.size()-1);
 		
 	}
-	
-	
-
-
 }
