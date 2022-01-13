@@ -270,6 +270,8 @@ public class VentanaMain extends JFrame{
 		ArrayList<String> ageneros = BaseDeDatos.obtenerGeneros();
 		comboBoxGenero.removeAllItems();
 		comboBoxGenero.addItem("Todos los g�neros");
+		comboBoxGenero.addItem("Rap");
+		comboBoxGenero.addItem("Reggaeton");
 		cargarRec(ageneros, 0);
 	}
 	
