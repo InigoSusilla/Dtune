@@ -3,6 +3,7 @@ import javax.swing.JList;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import java.awt.BorderLayout;
+import java.awt.Dimension;
 import java.awt.EventQueue;
 
 import javax.swing.JScrollPane;
@@ -36,6 +37,7 @@ public class VentanaMain extends JFrame{
 	private JList<Cancion> listaCarrito;
 	private static DefaultListModel modeloCarrito;
 	public static JButton btnAnadirCancion;
+	public static JButton btnEstadisticas;
 	//private Thread hiloReproductor = null;
 	public VentanaMain() {
 		FlatLightLaf.setup();
@@ -104,9 +106,11 @@ public class VentanaMain extends JFrame{
 		btnAnadirCancion = new JButton("Cancion");
 		panelMusicaBotones.add(btnAnadirCancion);
 		
-		JButton btnEstadisticas = new JButton("Estadisticas");
+		btnEstadisticas = new JButton("Estadisticas");
 		panelMusicaBotones.add(btnEstadisticas);
 		btnAnadirCancion.setVisible(false);
+		btnEstadisticas.setVisible(false);
+		
 		
 		btnAnadirCancion.addActionListener(new ActionListener() {
 			
@@ -210,7 +214,9 @@ public class VentanaMain extends JFrame{
 		
 		listaCarrito = new JList();
 		modeloCarrito = new DefaultListModel();
-		panelCarrito.add(listaCarrito);
+		JScrollPane scrollCarrito = new JScrollPane(listaCarrito);
+		scrollCarrito.setMinimumSize(new Dimension(400,1200));
+		panelCarrito.add(scrollCarrito);
 		listaCarrito.setModel(modeloCarrito);
 		
 		JButton btnPreviewCancion = new JButton("Reproducir Cancion");

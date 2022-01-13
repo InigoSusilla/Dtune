@@ -1,14 +1,18 @@
 import java.awt.BorderLayout;
 import java.awt.EventQueue;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.TreeMap;
 
 import javax.swing.JFrame;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
 import javax.swing.border.EmptyBorder;
+import javax.swing.JButton;
 
 public class VentanaEstadisticas extends JFrame {
 
@@ -34,7 +38,24 @@ public class VentanaEstadisticas extends JFrame {
 		cargarMapa();
 		area = new JTextArea(convertirMapaATexto());
 		contentPane.add(new JScrollPane(area), BorderLayout.CENTER);
-		//metodo();
+		
+		JPanel panelBoton = new JPanel();
+		contentPane.add(panelBoton, BorderLayout.SOUTH);
+		
+		JButton btnEstadis = new JButton("Comprobar duracion media");
+		panelBoton.add(btnEstadis);
+		
+		btnEstadis.addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				String respuesta = JOptionPane.showInputDialog("Este metodo recursivo multiple no lo he podido ralizar ya que genera un bucle infinito, ¿Quieres continuar?"
+						+ "(y/n)");
+				if(respuesta.equals("y")) {
+					metodo();
+				}
+			}	
+		});
 	}
 	
 	private void cargarMapa() {

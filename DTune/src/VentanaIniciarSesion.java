@@ -82,6 +82,7 @@ public class VentanaIniciarSesion extends JFrame {
 							if( ((Administrador)u).aniadirCancion()) {
 								logger.log( Level.INFO, "El administrador: " + u.getNombre() + " ha iniciado sesion correctamente");
 								VentanaMain.btnAnadirCancion.setVisible(true);
+								VentanaMain.btnEstadisticas.setVisible(true);
 							}
 						}
 					}else if(resul == 2) {
