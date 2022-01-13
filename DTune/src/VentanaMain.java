@@ -103,6 +103,9 @@ public class VentanaMain extends JFrame{
 			
 		btnAnadirCancion = new JButton("Cancion");
 		panelMusicaBotones.add(btnAnadirCancion);
+		
+		JButton btnEstadisticas = new JButton("Estadisticas");
+		panelMusicaBotones.add(btnEstadisticas);
 		btnAnadirCancion.setVisible(false);
 		
 		btnAnadirCancion.addActionListener(new ActionListener() {
@@ -110,8 +113,16 @@ public class VentanaMain extends JFrame{
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				new VentanaCrearCancion();
-				System.out.println("Ventana crear cancion");
 				//cargarGenerosDeLaBBDD();
+				
+			}
+		});
+		
+		btnEstadisticas.addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				new VentanaEstadisticas();
 				
 			}
 		});
@@ -270,6 +281,8 @@ public class VentanaMain extends JFrame{
 		ArrayList<String> ageneros = BaseDeDatos.obtenerGeneros();
 		comboBoxGenero.removeAllItems();
 		comboBoxGenero.addItem("Todos los g�neros");
+		comboBoxGenero.addItem("Rap");
+		comboBoxGenero.addItem("Reggaeton");
 		cargarRec(ageneros, 0);
 	}
 	
