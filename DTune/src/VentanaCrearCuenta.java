@@ -26,13 +26,15 @@ public class VentanaCrearCuenta extends JFrame  {
 	public String Contrasena;
 
 	private JPanel contentPane;
-	private JTextField txtUsuario;
 	private JTextField infoUsuario;
-	private JTextField txtContrasena;
-	private JTextField infoContrasena;
 	
 	JLabel lprogreso;
 	JProgressBar progreso;
+	private JPanel panelContra;
+	private JPanel panelProgress;
+	private JLabel lblContra;
+	private JTextField infoContrasena;
+	private JLabel lblUsuario;
 
 	/**
 	 * Create the frame.
@@ -51,11 +53,8 @@ public class VentanaCrearCuenta extends JFrame  {
 		JPanel PanelUsuario = new JPanel();
 		contentPane.add(PanelUsuario, BorderLayout.NORTH);
 		
-		txtUsuario = new JTextField();
-		txtUsuario.setText("Usuario");
-		txtUsuario.setEditable(false);
-		PanelUsuario.add(txtUsuario);
-		txtUsuario.setColumns(10);
+		lblUsuario = new JLabel("Usuario");
+		PanelUsuario.add(lblUsuario);
 		
 		infoUsuario = new JTextField();
 		PanelUsuario.add(infoUsuario);
@@ -67,13 +66,6 @@ public class VentanaCrearCuenta extends JFrame  {
 		
 		JButton btnRegistrar = new JButton("Registrar");
 		PanelRegistrar.add(btnRegistrar);
-		lprogreso = new JLabel("Validando usuario...");
-		lprogreso.setForeground(Color.RED);
-		progreso = new JProgressBar(0, 100);
-		progreso.setVisible(false);
-		lprogreso.setVisible(false);
-		PanelRegistrar.add(lprogreso);
-		PanelRegistrar.add(progreso);
 		
 		btnRegistrar.addActionListener(new ActionListener() {
 			
@@ -151,17 +143,28 @@ public class VentanaCrearCuenta extends JFrame  {
 				
 		JPanel PanelContrasena = new JPanel();
 		contentPane.add(PanelContrasena, BorderLayout.CENTER);
+		PanelContrasena.setLayout(new BorderLayout(0, 0));
 		
-		txtContrasena = new JTextField();
-		txtContrasena.setText("Contrase\u00F1a");
-		txtContrasena.setEditable(false);
-		PanelContrasena.add(txtContrasena);
-		txtContrasena.setColumns(10);
+		panelContra = new JPanel();
+		PanelContrasena.add(panelContra, BorderLayout.NORTH);
+		
+		lblContra = new JLabel("Contrasena");
+		panelContra.add(lblContra);
 		
 		infoContrasena = new JTextField();
-		PanelContrasena.add(infoContrasena);
+		panelContra.add(infoContrasena);
 		infoContrasena.setColumns(10);
-		setSize(350,250);
+		
+		panelProgress = new JPanel();
+		PanelContrasena.add(panelProgress, BorderLayout.SOUTH);
+		lprogreso = new JLabel("Validando usuario...");
+		panelProgress.add(lprogreso);
+		lprogreso.setForeground(Color.RED);
+		lprogreso.setVisible(false);
+		progreso = new JProgressBar(0, 100);
+		panelProgress.add(progreso);
+		progreso.setVisible(false);
+		setSize(350,200);
 		setVisible(true);
 	}
 

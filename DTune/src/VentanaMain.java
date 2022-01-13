@@ -29,6 +29,9 @@ import java.util.ArrayList;
 
 import javax.swing.JScrollBar;
 import javax.swing.JComboBox;
+import javax.swing.JLabel;
+import java.awt.Font;
+import java.awt.Component;
 
 public class VentanaMain extends JFrame{
 	private static JComboBox comboBoxGenero;
@@ -209,15 +212,17 @@ public class VentanaMain extends JFrame{
 			}
 		});
 		
-		JPanel panelCarrito = new JPanel();
-		panelCentro.add(panelCarrito);
-		
 		listaCarrito = new JList();
 		modeloCarrito = new DefaultListModel();
 		JScrollPane scrollCarrito = new JScrollPane(listaCarrito);
 		scrollCarrito.setMinimumSize(new Dimension(400,1200));
-		panelCarrito.add(scrollCarrito);
+		panelCentro.add(scrollCarrito);
 		listaCarrito.setModel(modeloCarrito);
+		
+		JLabel lblCarrito = new JLabel("Carrito");
+		lblCarrito.setAlignmentX(Component.CENTER_ALIGNMENT);
+		lblCarrito.setFont(new Font("Perpetua Titling MT", Font.PLAIN, 18));
+		scrollCarrito.setColumnHeaderView(lblCarrito);
 		
 		JButton btnPreviewCancion = new JButton("Reproducir Cancion");
 		panelRetirar.add(btnPreviewCancion);
