@@ -161,7 +161,7 @@ public class VentanaCrearCuenta extends JFrame  {
 		infoContrasena = new JTextField();
 		PanelContrasena.add(infoContrasena);
 		infoContrasena.setColumns(10);
-		setSize(350,150);
+		setSize(350,250);
 		setVisible(true);
 	}
 
