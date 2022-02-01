@@ -1,7 +1,4 @@
-import java.awt.List;
-import java.io.Serializable;
-import java.util.ArrayList;
-import java.util.HashMap;
+
 
 
 
@@ -9,7 +6,7 @@ import java.util.HashMap;
 public abstract class Usuario {
 	public static final long serialVersionUID = 1L;    //Para poder escribirlo o leerlo del fichero
 	
-	private static String nombre;
+	private String nombre;
 	private String contrasenia;
 	boolean esAdmin;
 	//private int num_u = 0;
@@ -26,7 +23,7 @@ public abstract class Usuario {
 		
 	}**/
 	//getters and setters
-	public static String getNombre() {
+	public String getNombre() {
 		return nombre;
 	}
 	public void setNombre(String nombre) {

@@ -1,20 +1,11 @@
-import javax.swing.JFrame;
 import javax.swing.JList;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import java.awt.BorderLayout;
 import java.awt.Dimension;
-import java.awt.EventQueue;
-
 import javax.swing.JScrollPane;
-import javax.swing.JRadioButton;
-import javax.swing.SwingConstants;
-import javax.swing.UIManager;
-import javax.swing.WindowConstants;
-
 import com.formdev.flatlaf.FlatLightLaf;
 
-import javax.swing.ButtonGroup;
 import javax.swing.DefaultListModel;
 import javax.swing.JButton;
 import javax.swing.JCheckBox;
@@ -22,38 +13,28 @@ import javax.swing.JCheckBox;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.sql.Connection;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 import java.sql.SQLException;
-import java.sql.Statement;
 import java.util.ArrayList;
 
-import javax.swing.JScrollBar;
 import javax.swing.JComboBox;
 import javax.swing.JLabel;
 import java.awt.Font;
 import java.awt.Component;
 
-public class VentanaMain extends JFrame{
-	private static JComboBox comboBoxGenero;
-	private DefaultListModel modeloListaCanciones;
+public class VentanaMain extends VentanaTienda{
+	private static final long serialVersionUID = -8713729984758159890L;
+	private static JComboBox<String> comboBoxGenero;
+	private DefaultListModel<Cancion> modeloListaCanciones;
 	private JList<Cancion> listCanciones;
-	private JList<Cancion> listaCarrito;
-	private static DefaultListModel modeloCarrito;
 	public static JButton btnAnadirCancion;
 	public static JButton btnEstadisticas;
 	//private Thread hiloReproductor = null;
-	public VentanaMain() {
-		FlatLightLaf.setup();
-		setLocationRelativeTo(null);
-		setVisible(true);
-		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		this.setExtendedState(MAXIMIZED_BOTH);
-	
+	public VentanaMain(Usuario u) {
+		super(u);
 		JPanel PanelPreview = new JPanel();
 		getContentPane().add(PanelPreview, BorderLayout.SOUTH);
-		
-		
-		
 		JPanel panelIniciarSesion = new JPanel();
 		getContentPane().add(panelIniciarSesion, BorderLayout.NORTH);
 		
@@ -65,12 +46,12 @@ public class VentanaMain extends JFrame{
 		panelCentro.add(panelMusica);
 		panelMusica.setLayout(new BorderLayout(0, 0));
 		
-		comboBoxGenero = new JComboBox();
+		comboBoxGenero = new JComboBox<String>();
 		panelMusica.add(comboBoxGenero, BorderLayout.NORTH);
 		
 		
 		cargarGenerosDeLaBBDD();
-		//Ordenar las canciones por el g�nero seleccionado
+		//Ordenar las canciones por el genero seleccionado
 		comboBoxGenero.addActionListener(new ActionListener() {
 			
 			@Override
@@ -87,13 +68,27 @@ public class VentanaMain extends JFrame{
 			}
 		});
 		
-		listCanciones = new JList();
-		modeloListaCanciones = new DefaultListModel();
+		listCanciones = new JList<>();
+		modeloListaCanciones = new DefaultListModel<>();
 		ArrayList<Cancion> ALCanciones = BaseDeDatos.obtenerCanciones();
 		for(Cancion c: ALCanciones) {
 			modeloListaCanciones.addElement(c);
 		}
 		listCanciones.setModel(modeloListaCanciones);
+		listCanciones.addMouseListener(new MouseAdapter() { //TODO esto hace que se pueda meter canciones al carrito con doble click
+			Cancion selected = null;
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				System.out.println(selected);
+				if(listCanciones.getSelectedIndex() != -1)
+				if(selected == null || !selected.equals(listCanciones.getSelectedValue()))selected = listCanciones.getSelectedValue();
+				else {
+					modeloCarrito.addElement(selected);
+					selected = null;
+				}
+			}
+		});
+		
 		JScrollPane scrollListaCanciones = new JScrollPane(listCanciones);
 		scrollListaCanciones.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED);
 		scrollListaCanciones.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_ALWAYS);
@@ -141,30 +136,12 @@ public class VentanaMain extends JFrame{
 		JPanel panelAnadirCarrito = new JPanel();
 		panelBotones.add(panelAnadirCarrito);
 		
-		JButton btnIniciarSesion = new JButton("Iniciar Sesion");
-		panelAnadirCarrito.add(btnIniciarSesion);
-		
-	
-	btnIniciarSesion.addActionListener(new ActionListener() {
-		
-		@Override
-		public void actionPerformed(ActionEvent e) {
-			if(VentanaIniciarSesion.getUsuario() == null) {
-				new VentanaPreLogging();
-			}else {
-				JOptionPane.showMessageDialog(null, "Ya has iniciado sesion");
-			}
-
-			
-		}
-	});
-		
 		
 		
 		JPanel panelRetirar = new JPanel();
 		panelBotones.add(panelRetirar);
 		
-		JButton btnAnadirCarrito = new JButton("A�adir Carrito");
+		JButton btnAnadirCarrito = new JButton("Añadir Carrito");
 		panelRetirar.add(btnAnadirCarrito);
 		
 		JButton btnQuitarCarrito = new JButton("Retirar del carrito");
@@ -174,7 +151,7 @@ public class VentanaMain extends JFrame{
 			
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				Cancion a = listaCarrito.getSelectedValue();
+				Cancion a = (Cancion)listaCarrito.getSelectedValue();
 				modeloCarrito.removeElement(a);
 				
 			}
@@ -197,27 +174,34 @@ public class VentanaMain extends JFrame{
 		
 		JButton btnFinalizar = new JButton("Finalizar Compra");
 		panelFinalizar.add(btnFinalizar);
-		
+		VentanaMain t = this;
 		btnFinalizar.addActionListener(new ActionListener() {
 			
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				if(VentanaIniciarSesion.getUsuario() == null) {
+				if(user == null) {
 				JOptionPane.showMessageDialog(null, "Tienes que iniciar sesion para poder comprar");
 				}else {
-					new VentanaPrintCarrito();
+					new VentanaPrintCarrito(t);
 				}
 
 				
 			}
 		});
 		
-		listaCarrito = new JList();
-		modeloCarrito = new DefaultListModel();
-		JScrollPane scrollCarrito = new JScrollPane(listaCarrito);
-		scrollCarrito.setMinimumSize(new Dimension(400,1200));
+		JButton btnAtras = new JButton("Volver");
+		panelFinalizar.add(btnAtras);
+		btnAtras.addActionListener(new ActionListener() {
+
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				new VentanaPostLogging(user);
+				dispose();
+			}
+			
+		});
+		
 		panelCentro.add(scrollCarrito);
-		listaCarrito.setModel(modeloCarrito);
 		
 		JLabel lblCarrito = new JLabel("Carrito");
 		lblCarrito.setAlignmentX(Component.CENTER_ALIGNMENT);
@@ -231,7 +215,6 @@ public class VentanaMain extends JFrame{
 		Thread hiloReproductor = new Thread( new Runnable() {
 			@Override
 			public void run() {
-				// TODO Auto-generated method stub
 				Cancion a = listCanciones.getSelectedValue();
 				String ruta = a.getRuta();		
 				Reproductor.ReproducirCancion(ruta);
@@ -291,31 +274,14 @@ public class VentanaMain extends JFrame{
 	public static void cargarGenerosDeLaBBDD() {
 		ArrayList<String> ageneros = BaseDeDatos.obtenerGeneros();
 		comboBoxGenero.removeAllItems();
-		comboBoxGenero.addItem("Todos los g�neros");
+		comboBoxGenero.addItem("Todos los géneros");
 		//comboBoxGenero.addItem("Rap");
 		//comboBoxGenero.addItem("Reggaeton");
 		cargarRec(ageneros, 0);
 	}
 	
-	public static void vaciarCarrito() {
-		modeloCarrito.removeAllElements();
-	}
-	
-	public static ArrayList<Cancion> obtenerCarrito() {
-		ArrayList<Cancion> canciones = new ArrayList<>();
-		if(modeloCarrito.getSize() > 0) {
-		for (int i = 0; i < modeloCarrito.getSize(); i++) {
-			canciones.add((Cancion)modeloCarrito.get(i));
-		}
-			System.out.println(canciones);
-		}
-		
-		return canciones;
-		
-	}
-	
 	public static void main(String[] args) throws SQLException {
-		new VentanaMain();
+		new VentanaPreLogging();
 		
 	}
 	

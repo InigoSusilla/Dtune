@@ -1,9 +1,8 @@
 import java.awt.BorderLayout;
-import java.awt.EventQueue;
+import java.awt.GridBagLayout;
+import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.io.FileNotFoundException;
-import java.io.PrintWriter;
 import java.sql.Date;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -14,57 +13,58 @@ import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
 import javax.swing.border.EmptyBorder;
 import javax.swing.JButton;
-import java.awt.Color;
 
 public class VentanaPrintCarrito extends JFrame {
 
-
+	private static final long serialVersionUID = -8705514754898251314L;
 	public String pagar;
 	public String volver;
 	public String cancelar;
-
+	SimpleDateFormat sdf = new SimpleDateFormat("dd-MM-yyyy kk.mm.ss");
+	private VentanaTienda parent;
+	private JTextArea taResumen;
+	private JScrollPane scrollAreaResumen;
+	
 	private JPanel contentPane;
 	
-	/**
-	 * Create the frame.
-	 */
-	public VentanaPrintCarrito() {
+	 //Create the frame.
+	
+	public VentanaPrintCarrito(VentanaTienda parent) {
 		setLocationRelativeTo(null);
 		
 
-		
+		this.parent = parent;
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-		setBounds(100, 100, 450, 300);
-		setVisible(true);
-		contentPane = new JPanel();
-		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
-		contentPane.setLayout(new BorderLayout(0, 0));
-		setContentPane(contentPane);
+		setSize(600, 200);
+		//contentPane = new JPanel();
+		//contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
+		//contentPane.setLayout(new BorderLayout(0, 0));
+		taResumen = new JTextArea();
+		taResumen.setEditable(false);
+		scrollAreaResumen = new JScrollPane(taResumen);
+		getContentPane().add(scrollAreaResumen, BorderLayout.CENTER);
+		taResumen.setText("");
+		cargarCarritoEnTextArea();
 		
-		JPanel PanelPagar = new JPanel();
-		contentPane.add(PanelPagar, BorderLayout.WEST);
+		//setContentPane(contentPane);
+		
+		JPanel PanelPagar = new JPanel(new GridLayout(3,1));
 		
 		JButton btnPagar = new JButton("Pagar");
 		PanelPagar.add(btnPagar);
-	
-		
-		JPanel PanelVolver = new JPanel();
-		contentPane.add(PanelVolver, BorderLayout.EAST);
 		
 		JButton btnVolver = new JButton("Volver");
-		PanelVolver.add(btnVolver);
-		
-		JPanel PanelCancelar = new JPanel();
-		contentPane.add(PanelCancelar, BorderLayout.CENTER);
+		PanelPagar.add(btnVolver);
 		
 		JButton btnCancelar = new JButton("Cancelar");
-		PanelCancelar.add(btnCancelar);
+		PanelPagar.add(btnCancelar);
+		
 		
 		btnPagar.addActionListener(new ActionListener() {
 			
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				new VentanaImprimir();
+				new VentanaImprimir(parent);
 				dispose();
 				
 			}
@@ -83,13 +83,27 @@ public class VentanaPrintCarrito extends JFrame {
 			
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				VentanaMain.vaciarCarrito();
+				parent.vaciarCarrito();
 				dispose();
 				}
 		});
 		
-		setSize(300, 100);
-		
+		getContentPane().add(PanelPagar, BorderLayout.WEST);
+		setVisible(true);
+	}
+	private void cargarCarritoEnTextArea() {
+
+		Date d = new Date(System.currentTimeMillis());
+		String texto = ""
+				+ "Factura de la compra del dia: " + sdf.format(d) + "\n";
+		double total = 0;
+		ArrayList<Comprable> listaCanciones = parent.obtenerCarrito();
+		for(Comprable c: listaCanciones) {
+			texto = texto + "	" + c.toString().replace("\n", "") + "\n";
+			total = total + c.getPrecio();
+		}
+		texto = texto + "TOTAL: "+total+" $";
+		taResumen.setText(texto);
 	}
 
 

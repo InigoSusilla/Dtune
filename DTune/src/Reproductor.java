@@ -1,9 +1,4 @@
 import java.io.FileInputStream;
-import java.io.IOException;
-import java.util.logging.Level;
-import java.util.logging.Logger;
-
-import javazoom.jl.decoder.JavaLayerException;
 import javazoom.jl.player.Player;
 
 public class Reproductor{
@@ -16,7 +11,7 @@ public class Reproductor{
 		}
 		catch(Exception exc){
 		    exc.printStackTrace();
-		    System.out.println("No se ha podido reproducir la canción");
+		    System.out.println("No se ha podido reproducir la canciï¿½n");
 		}
 		
 	}

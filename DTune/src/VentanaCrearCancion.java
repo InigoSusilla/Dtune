@@ -14,6 +14,7 @@ import javax.swing.JButton;
 import javax.swing.JRadioButton;
 
 public class VentanaCrearCancion extends JFrame{
+	private static final long serialVersionUID = 8068088350110514082L;
 	private JTextField textFieldNombre;
 	private JTextField textFieldAutor;
 	private JTextField textFieldPrecio;
@@ -90,7 +91,7 @@ public class VentanaCrearCancion extends JFrame{
 				Date fecha = sdf.parse(fechaRAW);
 				String ruta = "demosCanciones/Demo"+ rutaRAW + ".mp3";
 				Cancion c = new Cancion(nombre, autor, precio, esVinillo, fecha, genero, ruta, duracion);
-				BaseDeDatos.insertarCancion(c);
+				BaseDeDatos.insertar(c);
 				
 				JOptionPane.showMessageDialog(null, "Creada con exito");
 				VentanaMain.cargarGenerosDeLaBBDD();

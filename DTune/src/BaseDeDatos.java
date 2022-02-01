@@ -1,5 +1,3 @@
-
-
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.ResultSet;
@@ -15,7 +13,6 @@ import java.util.logging.Logger;
 public class BaseDeDatos {
 
 	private static Logger logger = Logger.getLogger( "BaseDatos" );
-	
 	public static Connection initBD() {
 		
 		try {
@@ -52,6 +49,12 @@ public class BaseDeDatos {
 					   "genero String, "+
 					   "ruta String,"+
 					   "duracion double)");
+			statement.executeUpdate("create table Entradas"+
+					   "(artista string, "+
+					   "ubicacion string, "+
+					   "fecha long, "+
+					   "precio double,"+
+					   "order by fecha ASC)");
 			return statement;
 		} catch (SQLException e) {
 			return null;
@@ -63,9 +66,9 @@ public class BaseDeDatos {
 			Statement stt = con.createStatement();
 			stt.executeUpdate("drop table Usuarios");
 			stt.executeUpdate("drop table Canciones");
+			stt.executeUpdate("drop table Entradas");
 			return BaseDeDatos.CrearTablasBD(con);
 		} catch (SQLException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		return null;
@@ -89,7 +92,6 @@ public class BaseDeDatos {
 			stt = con.createStatement();
 			stt.executeUpdate(sentSQL);
 			} catch (SQLException e) {
-				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
 			finally {
@@ -106,7 +108,6 @@ public class BaseDeDatos {
 			stt.executeUpdate(sentSQL);
 			logger.log( Level.INFO, "Usuario eliminado correctamente: " + nombre );
 		} catch (SQLException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}finally {
 			BaseDeDatos.closeBD(con, stt);
@@ -123,14 +124,13 @@ public class BaseDeDatos {
 			ResultSet rs = st.executeQuery(query);
 			if(rs.next()) {
 				String c = rs.getString("contrasenia");
-				boolean esAdmin = rs.getBoolean("esAdmin");
+				boolean esAdmin = rs.getBoolean("esAdministrador");
 				if(esAdmin)
 					u = new Administrador(nombre, c);
 				else
 					u = new Cliente(nombre, c);
 			}
 		} catch (SQLException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		} finally {
 			closeBD(con, st);
@@ -138,17 +138,23 @@ public class BaseDeDatos {
 		return u;
 	}
 	
-	public static void insertarCancion(Cancion c) {
+	public static void insertar(Object o) {
 		Connection con = BaseDeDatos.initBD();
 		Statement stt = null;
-		long milis = c.getFechaLanzamiento().getTime();
-		String sentSQL = "INSERT INTO Canciones VALUES('"+c.getNombre()+"','"+c.getAutor()+"',"+c.getPrecio()+","+c.getEsVinillo()+","+milis+",'"+c.getGenero()+"','"+c.getRuta()+"',"+c.getDuracion()+")";
+		String sentSQL = "";
+		if(o instanceof Cancion) {
+			Cancion c = (Cancion) o;
+			long milis = c.getFechaLanzamiento().getTime();
+			sentSQL = "INSERT INTO Canciones VALUES('"+c.getNombre()+"','"+c.getAutor()+"',"+c.getPrecio()+","+c.getEsVinillo()+","+milis+",'"+c.getGenero()+"','"+c.getRuta()+"',"+c.getDuracion()+")";
+		}else if(o instanceof Entrada) {
+			Entrada e = (Entrada)o;
+			sentSQL = "INSERT INTO Entradas VALUES('"+e.artista+"','"+e.ubicacion+"',"+e.fechaMilis.toString()+","+e.precio+")";
+		}
 		try {
 			stt = con.createStatement();
 			stt.executeUpdate(sentSQL);
-			logger.log( Level.INFO, "Cacnion creada correctamente: " + c.getNombre() );
+			logger.log( Level.INFO, "Insercion ejecutada correctamente: "+sentSQL );
 			} catch (SQLException e) {
-				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
 			finally {
@@ -166,7 +172,20 @@ public class BaseDeDatos {
 			stt.executeUpdate(sentSQL);
 			logger.log( Level.INFO, "Cancion eliminada correctamente: " + nombre );
 		} catch (SQLException e) {
-			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}finally {
+			BaseDeDatos.closeBD(con, stt);
+		}
+	}
+	public static void eliminarEntrada(Long fecha) {
+		Connection con = BaseDeDatos.initBD();
+		Statement stt = null;
+		String sentSQL = "DELETE FROM Entradas WHERE fecha = '"+fecha+"'";
+		try {
+			stt = con.createStatement();
+			stt.executeUpdate(sentSQL);
+			logger.log( Level.INFO, "Entrada eliminada correctamente: " + new SimpleDateFormat("hh:mm dd/MM/yyyy").format(new Date(fecha)));
+		} catch (SQLException e) {
 			e.printStackTrace();
 		}finally {
 			BaseDeDatos.closeBD(con, stt);
@@ -192,7 +211,6 @@ public class BaseDeDatos {
 				resultado = 3;
 			}
 		} catch (SQLException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		} finally {
 			closeBD(con, stt);
@@ -217,7 +235,6 @@ public class BaseDeDatos {
 				resultado = 1;//NO EXISTE
 			}
 		} catch (SQLException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		finally {
@@ -245,18 +262,39 @@ public class BaseDeDatos {
 				String rut = rs.getString("ruta");
 				Double dura = rs.getDouble("duracion");
 				
-				SimpleDateFormat sdf = new SimpleDateFormat( "dd/MM/yyyy" );
 				Date fechaLanz = new Date(milisLanz);
-				
+				System.out.println(nomb);
+				System.out.println(dura);
 				Cancion pa = new Cancion(nomb, aut, prec , flan, fechaLanz, gen, rut, dura);
 				listaCanciones.add(pa);	
 			}
 		} catch (SQLException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		return listaCanciones;
+	}
+	
+	public static ArrayList<Entrada> obtenerEntradas(){
+		Connection con = BaseDeDatos.initBD();
+		Statement stt = null;
+		String sentSQL = "select * from Entradas";
+		ArrayList<Entrada> listaEntradas = new ArrayList<>();
+		try {
+			stt = con.createStatement();
+			ResultSet rs = stt.executeQuery(sentSQL);
+			while(rs.next()){
+				String artista = rs.getString("artista"); 
+				String ubicacion = rs.getString("ubicacion"); 
+				double prec = rs.getDouble("precio");
+				long fecha = rs.getLong("fecha");
+				Entrada e = new Entrada(artista, ubicacion, fecha, prec);
+				listaEntradas.add(e);	
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
 		}
+		return listaEntradas;
+	}
 		
 		
 	public static Usuario esAdministrador2(String usuario){
@@ -278,7 +316,6 @@ public class BaseDeDatos {
 					u = new Cliente(nombre, contrasenia);
 			}
 		} catch (SQLException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		
@@ -310,7 +347,6 @@ public class BaseDeDatos {
 				String rut = rs.getString("ruta");
 				Double dura = rs.getDouble("duracion");
 				
-				SimpleDateFormat sdf = new SimpleDateFormat( "dd/MM/yyyy" );
 				Date fechaLanz = new Date(milisLanz);
 				
 				Cancion pa = new Cancion(nomb, aut, prec , flan, fechaLanz, gen, rut, dura);
@@ -321,7 +357,6 @@ public class BaseDeDatos {
 				
 			}
 			} catch (SQLException e) {
-				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
 			finally {
@@ -345,7 +380,6 @@ public class BaseDeDatos {
 			}
 			rs.close();
 		} catch (SQLException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		
@@ -379,7 +413,6 @@ public class BaseDeDatos {
 				String rut = rs.getString("ruta");
 				Double dura = rs.getDouble("duracion");
 				
-				SimpleDateFormat sdf = new SimpleDateFormat( "dd/MM/yyyy" );
 				Date fechaLanz = new Date(milisLanz);
 				
 				Cancion pa = new Cancion(nomb, aut, prec , flan, fechaLanz, gen, rut, dura);
@@ -390,7 +423,6 @@ public class BaseDeDatos {
 				
 			}
 			} catch (SQLException e) {
-				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
 			finally {

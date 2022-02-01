@@ -1,19 +1,7 @@
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
-import java.io.InputStream;
-import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.time.ZonedDateTime;
-import java.time.format.DateTimeFormatter;
 import java.util.Date;
 
-import javax.print.attribute.standard.Media;
-import javax.sound.sampled.AudioInputStream;
-
-
-public class Cancion implements Comparable<Cancion>{
-	
+public class Cancion implements Comparable<Cancion>, Comprable{
 	
 	public String nombre;
 	public String autor;
@@ -79,7 +67,7 @@ public class Cancion implements Comparable<Cancion>{
 	}
 	@Override
 	public String toString() {
-		return nombre +" "+ autor + " "+ sdf.format(getFechaLanzamiento()) + " "+ duracion + " "+ precio; 
+		return nombre +" "+ autor + " "+ sdf.format(getFechaLanzamiento()) + " "+ (int)duracion + ":"+(int)(duracion*100%100)+" "+ precio+"€"; 
 		/*return "Cancion [nombre=" + nombre + ", autor=" + autor + ", precio=" + precio + ", esVinillo=" + esVinillo
 				+ ", fechaLanzamiento=" + fechaLanzamiento + ", genero=" + genero + ", ruta=" + ruta + ", duracion="
 				+ duracion + "]";*/

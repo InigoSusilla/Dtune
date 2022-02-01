@@ -16,6 +16,7 @@ import javax.swing.JButton;
 
 public class VentanaEstadisticas extends JFrame {
 
+	private static final long serialVersionUID = 2134933947729434274L;
 	private JPanel contentPane;
 	private TreeMap<String, ArrayList<Cancion>> tmGeneros;
 	private JTextArea area;
@@ -49,7 +50,7 @@ public class VentanaEstadisticas extends JFrame {
 			
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				String respuesta = JOptionPane.showInputDialog("Este metodo recursivo multiple no lo he podido ralizar ya que genera un bucle infinito, ¿Quieres continuar?"
+				String respuesta = JOptionPane.showInputDialog("Este metodo recursivo multiple no lo he podido ralizar ya que genera un bucle infinito, ï¿½Quieres continuar?"
 						+ "(y/n)");
 				if(respuesta.equals("y")) {
 					metodo();
@@ -101,8 +102,8 @@ public class VentanaEstadisticas extends JFrame {
 		System.out.println("Media = "+media);
 		recorrer(aCanciones,aCanciones.size()/2,media);
 		if(pos==-1)
-			System.out.println("No hay ninguna canción con una duración de menos de un segundo de diferencia respecto a la media");
+			System.out.println("No hay ninguna canciï¿½n con una duraciï¿½n de menos de un segundo de diferencia respecto a la media");
 		else
-			System.out.println("La canción de la posición "+pos+"tiene una diferencia de menos de 1 segundo respecto a la media");
+			System.out.println("La canciï¿½n de la posiciï¿½n "+pos+"tiene una diferencia de menos de 1 segundo respecto a la media");
 	}
 }
