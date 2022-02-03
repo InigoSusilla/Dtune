@@ -3,11 +3,14 @@ import java.awt.FlowLayout;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 import java.util.ArrayList;
 import java.util.Date;
 
 import javax.swing.BorderFactory;
 import javax.swing.JButton;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
@@ -20,17 +23,21 @@ public class VentanaEntradas extends VentanaTienda{
 	public VentanaEntradas(Usuario u) {
 		super(u);
 		setLocationRelativeTo(null);
-		
 		ModelEntradas model = new ModelEntradas();
-		JTable tablaEntradas = new JTable(model);
-		for(Entrada e : listaEntradas) {
-			model.addValue(e);
+		JTable tablaEntradas = new JTable(model) {
+			private static final long serialVersionUID = -417297738736674095L;
+
+			public boolean isCellEditable(int row, int column) {                
+                return false;               
 			}
+		};
+		for(Entrada e : listaEntradas)
+			model.addValue(e);
 		tablaEntradas.setShowGrid(true);
 		JScrollPane scroll = new JScrollPane(tablaEntradas);
 		getContentPane().add(scroll, BorderLayout.CENTER);
 		JPanel panelIteraction = new JPanel(new GridLayout(3,1));
-		JButton addCarrito = new JButton("Añadir al carrito");
+		JButton addCarrito = new JButton("AÃ±adir al carrito");
 		JButton delete = new JButton("Eliminar del carrito");
 		JButton end = new JButton("Terminar compra");
 		JButton back = new JButton("Atras");
@@ -39,12 +46,24 @@ public class VentanaEntradas extends VentanaTienda{
 		JScrollPane comprasPane = new JScrollPane(listaCarrito);
 		comprasPane.setBorder(BorderFactory.createTitledBorder("Carrito"));
 		addCarrito.addActionListener(new ActionListener() {
-			
+
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				modeloCarrito.addElement(model.getValueAt(tablaEntradas.getSelectedRow()));
+				modeloCarrito.addElement(model.getValueAt(tablaEntradas.getSelectedRow()).comprar(JOptionPane.showInputDialog("Introduzca el nombre del comprador")));
 			}
 			
+		});
+		tablaEntradas.addMouseListener(new MouseAdapter() {
+			Entrada selected = null;
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				if(tablaEntradas.getSelectedRow() != -1)
+				if(selected == null || !selected.equals(model.getValueAt(tablaEntradas.getSelectedRow())))selected = model.getValueAt(tablaEntradas.getSelectedRow());
+				else {
+					modeloCarrito.addElement(selected.comprar(JOptionPane.showInputDialog("Introduzca el nombre del comprador")));
+					selected = null;
+				}
+			}
 		});
 		delete.addActionListener(new ActionListener() {
 

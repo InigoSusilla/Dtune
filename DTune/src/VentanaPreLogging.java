@@ -26,6 +26,7 @@ public class VentanaPreLogging extends JFrame {
 	 * Create the frame.
 	 */
 	public VentanaPreLogging() {
+		setLocationRelativeTo(null);
 		setTitle("DTune Logging");
 		setVisible(true);
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);

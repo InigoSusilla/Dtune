@@ -23,4 +23,22 @@ public class Entrada implements Comprable{
 	public double getPrecio() {
 		return precio;
 	}
+	@Override
+	public boolean equals(Object e) {
+		return (e instanceof Entrada) && ((Entrada)e).artista == artista && ((Entrada)e).fechaMilis == ((Entrada)e).fechaMilis;
+	}
+	public EntradaComprada comprar(String dueno) {
+		return new EntradaComprada(dueno, artista, ubicacion, fechaMilis, precio);
+	}
+	public class EntradaComprada extends Entrada{
+		public final String dueno;
+		private EntradaComprada(String dueno ,String artista, String ubicacion, Long fecha, Double precio) {
+			super(artista, ubicacion, fecha, precio);
+			this.dueno = dueno;
+		}
+		@Override
+		public String toString() {
+			return super.toString()+". "+dueno;
+		}
+	}
 }
